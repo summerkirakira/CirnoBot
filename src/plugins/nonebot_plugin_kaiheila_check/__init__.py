@@ -1,4 +1,3 @@
-import nonebot
 from nonebot import on_startswith
 from nonebot import get_driver
 from nonebot.adapters.onebot.v11 import Bot, Event, GroupMessageEvent, MessageSegment, Message
