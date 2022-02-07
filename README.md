@@ -1,5 +1,2 @@
-# cirno_bot
-
-## How to start
-
-# 懒得写，随便加点
+# CirnoBot
+### 专注Minecraft功能同时加点娱乐功能：-
