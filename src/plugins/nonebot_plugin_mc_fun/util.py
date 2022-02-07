@@ -1,11 +1,9 @@
 import nonebot
 from nonebot.log import logger
-from ..nonebot_plugin_mc_info import MinecraftConnector
-from nonebot.adapters.onebot.v11 import MessageSegment, Bot
 from ..nonebot_plugin_mc_info.connect import MinecraftConnector
 from nonebot.plugin import require
 from .config import current_folder, default_config
-from .data_source import save_config_to_json, get_config, save_config_to_yaml
+from .data_source import get_config, save_config_to_yaml
 from nonebot.adapters.onebot.v11.exception import ActionFailed, NetworkError
 import os
 

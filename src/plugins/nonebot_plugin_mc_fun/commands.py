@@ -6,8 +6,6 @@ from .data_source import save_config_to_yaml, save_specific_config
 from .message_image_generater import make_chat_image
 from .data_source import get_config, save_config_to_yaml
 import time
-from time import strftime, gmtime
-import datetime
 from nonebot.plugin import require
 from .util import get_group_bind_server
 

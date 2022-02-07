@@ -45,8 +45,3 @@ default_config = {
 }
 
 
-class Config(BaseSettings):
-    # Your Config Here
-
-    class Config:
-        pass

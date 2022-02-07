@@ -28,14 +28,6 @@ def save_specific_config(server_config):
                 return
 
 
-# def get_config() -> list:
-#     with open(os.path.join(current_folder, 'config.json')) as f:
-#         config = json.loads(f.read())
-#         with open(os.path.join(current_folder, 'config.yaml'), "w") as file:
-#             file.write(yaml.safe_dump(config, allow_unicode=True, sort_keys=False))
-#         return config
-
-
 def get_config() -> list:
     with open(os.path.join(current_folder, 'config.yaml'), "r") as file:
         return [data for data in yaml.full_load_all(file.read())]
