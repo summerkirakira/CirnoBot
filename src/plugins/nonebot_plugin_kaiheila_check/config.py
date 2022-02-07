@@ -10,4 +10,4 @@ def get_config() -> dict:
 
 def save_config_to_yaml(server_info):
     with open(os.path.join(current_folder, 'config.yaml'), 'w') as f:
-        f.write(yaml.dump_all(server_info, allow_unicode=True, sort_keys=False))
+        f.write(yaml.dump(server_info, allow_unicode=True, sort_keys=False))
