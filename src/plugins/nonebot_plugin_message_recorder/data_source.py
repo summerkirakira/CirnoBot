@@ -27,12 +27,12 @@ async def insert_new_row(qq_id: int, bot_id: int, group: int, text_message: str,
 
 
 def save_config_to_yaml(server_info):
-    with open(os.path.join(current_folder, 'config.yaml'), 'w') as f:
+    with open(os.path.join(current_folder, 'config.yaml'), 'w', encoding='utf-8') as f:
         f.write(yaml.dump(server_info, allow_unicode=True, sort_keys=False))
 
 
 def get_config() -> dict:
-    with open(os.path.join(current_folder, 'config.yaml'), 'r') as f:
+    with open(os.path.join(current_folder, 'config.yaml'), 'r', encoding='utf-8') as f:
         return yaml.safe_load(f.read())
 
 

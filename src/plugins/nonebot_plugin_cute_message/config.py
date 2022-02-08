@@ -6,7 +6,7 @@ class Config(BaseSettings):
 
     class Config:
         extra = "ignore"
-        enabled_poke = [2086868211, 934869815]
+        enabled_poke = []
         emoji = [
             '(๑>◡<๑) ',
             '( /) V (\\ ) ',
