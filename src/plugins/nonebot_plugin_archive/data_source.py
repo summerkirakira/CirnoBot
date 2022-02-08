@@ -100,23 +100,6 @@ async def remove_entry(entry: dict):
         await sqlite.execute(query, values=data)
 
 
-"""
-async def get_picture(picture_name) -> bytes:
-    current_pictures = os.listdir(PICTURE_FOLDER)
-    if picture_name in current_pictures:
-        with open(os.path.join(PICTURE_FOLDER, picture_name), 'rb') as f:
-            file = f.read()
-        return file
-    else:
-        async with httpx.AsyncClient() as client:
-            r = await client.get(global_config.Config.picture_server_url)
-        with open(os.path.join(PICTURE_FOLDER, picture_name), 'wb') as f:
-            f.write(r.content)
-        return r.content
-
-"""
-
-
 def save_config_to_yaml(server_info):
     with open(os.path.join(current_folder, 'config.yaml'), 'w') as f:
         f.write(yaml.dump(server_info, allow_unicode=True, sort_keys=False))

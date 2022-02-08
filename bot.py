@@ -22,4 +22,5 @@ driver.register_adapter(OneBotAdapter)
 
 nonebot.load_from_json("plugin_config.json", encoding="utf-8")
 nonebot.load_plugin("src.plugins.nonebot_plugin_archive")
+nonebot.load_plugin("src.plugins.nonebot_plugin_message_recorder")
 
