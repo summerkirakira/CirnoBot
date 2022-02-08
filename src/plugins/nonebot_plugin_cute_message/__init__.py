@@ -59,7 +59,7 @@ async def _poke_reaction(bot: Bot, event: Event):
 
 
 @cute_reply.handle()
-async def _cute_reply(bot: Bot, event: Event, state: T_State):
+async def _cute_reply(bot: Bot, event: Event, state: T_State=State()):
     if isinstance(event, GroupMessageEvent):
         if isinstance(state['reply'], list):
             random_message = random.choice(state['reply'])

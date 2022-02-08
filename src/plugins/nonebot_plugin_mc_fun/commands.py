@@ -2,8 +2,8 @@ from nonebot import on_startswith
 from nonebot.matcher import Matcher, Bot
 from nonebot.adapters.onebot.v11.event import GroupMessageEvent
 from nonebot.adapters.onebot.v11.message import MessageSegment, Message
-from .data_source import save_config_to_yaml, save_specific_config
-from .message_image_generater import make_chat_image
+from .data_source import save_specific_config
+from .message_image_generater import make_chat_image, make_plugins_image
 from .data_source import get_config, save_config_to_yaml
 import time
 from nonebot.plugin import require
@@ -37,6 +37,8 @@ set_entries = on_startswith(".mc词条", priority=12)
 # 设定mc词条
 execute_command = on_startswith(".指令", priority=16)
 # 执行mc命令
+get_plugin_list = on_startswith(".插件列表", priority=16)
+# 获取插件列表
 
 
 @server_status.handle()
@@ -368,3 +370,19 @@ async def _execute_command(bot: Bot, event: GroupMessageEvent):
     await server.execute_command(command.replace('/', ''))
     await bot.send(event, Message(MessageSegment.text(f"指令执行成功的说～{'执行指令无需使用/哦～' if '/' in command else ''}")))
     return
+
+
+@get_plugin_list.handle()
+async def _get_plugin_list(bot: Bot, event: GroupMessageEvent):
+    server_config, server = get_group_bind_server(event.group_id)
+    if not server_config:
+        await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))
+        return
+    if not server.connected:
+        await bot.send(event, Message(MessageSegment.text("服务器未连接呢～")))
+        return
+    if event.sender.user_id not in server_config["superuser"]:
+        await bot.send(event, Message(MessageSegment.text("小伙伴权限不足呢～")))
+        return
+    image = await make_plugins_image(await server.get_plugins())
+    await bot.send(event, Message(MessageSegment.image(image)))
