@@ -1,6 +1,5 @@
 from nonebot import get_driver, Bot, on_message, require
 from nonebot.adapters.onebot.v11 import Bot, GroupMessageEvent
-from .config import Config
 from nonebot.rule import Rule
 from .data_source import insert_new_row, current_folder, save_config_to_yaml, get_config
 import os
@@ -8,8 +7,6 @@ import os
 database = require("nonebot_plugin_database_connector")
 sqlite = database.sqlite_pool
 
-global_config = get_driver().config
-config = Config(**global_config.dict())
 driver = get_driver()
 
 record_dict = {}
@@ -37,7 +34,7 @@ async def _insert_message(bot: Bot, event: GroupMessageEvent):
 
 
 @driver.on_startup
-async def init_archieve():
+async def init_message_recorder():
     global record_dict
     if not os.path.exists(os.path.join(current_folder, 'config.yaml')):
         save_config_to_yaml({1234567: [1234567, 12345678]})

@@ -339,7 +339,7 @@ async def _show_entries(bot: Bot, event: Event):
 
 
 @driver.on_startup
-async def init_archieve():
+async def init_archive():
     if not os.path.exists(os.path.join(current_folder, 'config.yaml')):
         save_config_to_yaml({"image_server_url": "http://localhost:4500",
                              "only_admin_can_edit": False})
