@@ -4,7 +4,7 @@ import asyncio
 import json
 import time
 from functools import wraps
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
 import websockets
 from websockets.exceptions import ConnectionClosedError, InvalidStatusCode
@@ -13,7 +13,7 @@ import httpx
 
 
 class MinecraftConnector:
-    listener_dict = {
+    listener_dict: dict = {
         'on_player_chat': [],
         'on_player_login': [],
         'on_player_disconnected': [],
@@ -21,15 +21,15 @@ class MinecraftConnector:
     }
 
     def __init__(self, server_uri: str, auth_key: str):
-        self.server_uri = server_uri
-        self.auth_key = auth_key
-        self.server_info = None
-        self.connected = True
-        self.player_chat = []
-        self.command_list = []
-        self.login_event = []
-        self.logout_event = []
-        self.players = []
+        self.server_uri: str = server_uri
+        self.auth_key: str = auth_key
+        self.server_info: Optional[str] = None
+        self.connected: bool = True
+        self.player_chat: List[dict] = []
+        self.command_list: List[dict] = []
+        self.login_event: List[dict] = []
+        self.logout_event: List[dict] = []
+        self.players: List[dict] = []
         if not self.test_connection():
             self.connected = False
             self.server_info = self.get_server_info()
@@ -67,6 +67,11 @@ class MinecraftConnector:
         return None
 
     async def get_name_from_uuid(self, uuid: str) -> str:
+        """
+        从玩家的uuid获取name
+        :param uuid: str
+        :return: str
+        """
         for player in self.players:
             if player["uuid"] == uuid:
                 return player["Name"]
@@ -77,6 +82,11 @@ class MinecraftConnector:
         raise ValueError
 
     async def process_player_chat(self, message) -> dict:
+        """
+        格式化服务器日志中的玩家消息
+        :param message: str
+        :return: dict
+        """
         send_time = message["timestampMillis"]
         message = message["message"]
         player_name = message.split(" ")[0].replace('<', '').replace('>', '')
@@ -90,6 +100,11 @@ class MinecraftConnector:
         }
 
     async def process_commands(self, message) -> dict:
+        """
+        格式化服务器日志中的玩家命令日志
+        :param message:
+        :return:
+        """
         message = message["message"]
         player_name = message.split(" ")[0]
         command_content = message.split(" ")[-1].replace("/", "")
@@ -123,6 +138,10 @@ class MinecraftConnector:
         return _handle
 
     async def _ws_connect(self):
+        """
+        Websocket连接件
+        :return:
+        """
         while True:
             try:
                 async with websockets.connect(f"ws://{self.server_uri}/v1/ws/console",
