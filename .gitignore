@@ -18,6 +18,7 @@ data.db
 .Python
 .DS_Store
 */.DS_Store
+accounts/
 bin/
 build/
 develop-eggs/

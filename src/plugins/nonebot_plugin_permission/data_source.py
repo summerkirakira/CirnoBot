@@ -1,7 +1,6 @@
 import os
 import yaml
 
-
 current_folder = os.path.dirname(__file__)
 
 

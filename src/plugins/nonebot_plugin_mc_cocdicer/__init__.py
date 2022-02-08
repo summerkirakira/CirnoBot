@@ -5,11 +5,8 @@ from .investigator import Investigator
 from .san_check import sc
 from .cards import _cachepath, cards, cache_cards, set_handler, show_handler, sa_handler, del_handler
 
-from nonebot import get_driver, get_bot
-from nonebot.rule import Rule
-from nonebot.matcher import Matcher
+from nonebot import get_driver
 from nonebot.plugin import on_startswith
-from nonebot.adapters.onebot.v11 import Bot, Event, GroupMessageEvent
 
 import os
 
@@ -24,12 +21,6 @@ async def _():  # 角色卡暂存目录初始化
         with open(_cachepath, "w", encoding="utf-8") as f:
             f.write("{}")
     cards.load()
-
-
-# def is_group_message() -> Rule:
-#     async def _is_group_message(bot: "Bot", event: "Event") -> bool:
-#         return True if type(event) is GroupMessageEvent else False
-#     return Rule(_is_group_message)
 
 
 @MinecraftConnector.handle('on_player_chat')

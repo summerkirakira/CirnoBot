@@ -23,7 +23,6 @@ async def exchange_rate(from_coin, to_coin, money):
     APPKEY = get_config()["app_key"]
     url = "http://api.tianapi.com/txapi/fxrate/index?key={}&fromcoin={}&tocoin={}&money={}".format(APPKEY, from_coin,
                                                                                                    to_coin, money)
-    print(url)
     async with httpx.AsyncClient() as client:
         data = await client.get(url)
     json_data = json.loads(data.text)

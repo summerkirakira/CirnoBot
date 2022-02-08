@@ -1,0 +1,48 @@
+bot_enabled: true # 总开关
+
+host: 127.0.0.1 # 当gocq在本地允许时请不要改动这两项
+port: 8080
+
+superuser:
+  - 12345678 # 主人账号
+  - 12345678 # 可添加多个
+
+plugins_config: # 包含基础设置，精确控制请移步插件文件夹
+
+  nonebot_plugin_currency_conversion: # 汇率转换
+    enabled: true
+
+  nonebot_plugin_cute_message: # 正则匹配图文回复以及戳一戳回复
+    enabled: true
+
+  nonebot_plugin_database_connector: # 数据库连接件，词条及消息记录模块依赖，请勿关闭（如果你不知道自己在做什么的话）>_<
+    enabled: true
+
+  nonebot_plugin_image_server: # 图片缓存服务器，词条模块依赖，用于缓存词条图片，关闭后词条无法录入图片信息 QAQ
+    enabled: true
+    image_server_url: localhost:4500 # 图片存储地址，用于gocq获取图片。如果你的gocq和bot在同一位置，请不要更改此选项（别乱改就完事了 上面那个也是）
+
+  nonebot_plugin_kaiheila_check: # 开黑啦信息查询
+    enabled: true # 请去 src/plugins/nonebot_plugin_kaiheila_check/config.yaml 配置密钥
+
+  nonebot_plugin_mc_info: # MC服务器连接器，所有mc功能的基础
+    enabled: true # 请去 src/plugins/nonebot_plugin_mc_info/config.yaml 配置密钥
+
+  nonebot_plugin_mc_fun: # 提供MC服务器管理等一系列功能（冷知识：这里的fun是function的缩写）
+    enabled: true # 请去 src/plugins/nonebot_plugin_mc_fun/config.yaml 配置密钥，对啦，不要惊讶，如果不配置上面那个mc_info, 这会是个空文件
+
+  nonebot_plugin_mc_cocdicer: # MC 跑团插件（注意，是mc哦）
+    enabled: true # 其实这个选项并没有任何用处，但还是加上去惹，很有仪式感，不是么
+
+  nonebot_plugin_message_recorder: # 消息记录器，需要配置监控的群才会生效哦
+    enabled: true # 请去 src/plugins/nonebot_message_recorder/config.yaml 配置
+
+  nonebot_plugin_permission: # 一个简单的权限管理器
+    enabled: true # 请去 src/plugins/nonebot_plugin_permission/config.yaml 配置
+
+  nonebot_plugin_archive: # 词条系统
+    enabled: true # 是否开启
+    only_admin_can_edit: false # 是否仅允许管理员编辑
+
+
+

@@ -33,7 +33,7 @@ async def message_permission(bot: Bot, event: GroupMessageEvent):
 
 
 @driver.on_startup
-def init_message_recorder():
+def init():
     global permission_config
     if not os.path.exists(os.path.join(current_folder, 'config.yaml')):
         save_config_to_yaml({'permission_check': False,
