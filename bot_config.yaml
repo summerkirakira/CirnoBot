@@ -3,9 +3,11 @@ bot_enabled: true # 总开关
 host: 127.0.0.1 # 当gocq在本地允许时请不要改动这两项
 port: 8080
 
+gocq_download_domain: github.com
+
 superuser:
-  - 12345678 # 主人账号
-  - 12345678 # 可添加多个
+  - '12345678' # 主人账号
+  - '12345678' # 可添加多个
 
 plugins_config: # 包含基础设置，精确控制请移步插件文件夹
 
@@ -43,6 +45,9 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
   nonebot_plugin_archive: # 词条系统
     enabled: true # 是否开启
     only_admin_can_edit: false # 是否仅允许管理员编辑
+
+  nonebot_plugin_gocqhttp:
+    enabled: true
 
 
 

@@ -38,4 +38,7 @@ def load_plugins():
                             if key != 'enabled':
                                 plugin_config[key] = bot_config["plugins_config"][plugin_name][key]
                         save_config_to_yaml(plugin_config, plugin_path)
-                nonebot.load_plugin(f"src.plugins.{plugin_name}")
+                if os.path.exists(os.path.join('src', 'plugins', plugin_name)):
+                    nonebot.load_plugin(f"src.plugins.{plugin_name}")
+                else:
+                    nonebot.load_plugin(plugin_name)
