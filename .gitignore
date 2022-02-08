@@ -10,7 +10,7 @@ __pycache__/
 *$py.class
 .idea
 */*.yaml
-
+data.db
 # C extensions
 *.so
 

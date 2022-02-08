@@ -20,5 +20,6 @@ driver = nonebot.get_driver()
 driver.register_adapter(OneBotAdapter)
 
 
-nonebot.load_plugins('./src/plugins')
+nonebot.load_from_json("plugin_config.json", encoding="utf-8")
+nonebot.load_plugin("src.plugins.nonebot_plugin_archive")
 
