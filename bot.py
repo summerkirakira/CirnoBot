@@ -15,15 +15,7 @@ logger.add("error.log",
            format=default_format)
 
 config = get_config('bot_config.yaml')
-nonebot.init(
-    # host=config['host'],
-    # port=config['port'],
-    # superuser=config['superuser'],
-    # nickname=['小九', '琪露诺'],
-    # gocq_download_domain=config['gocq_download_domain'],
-    # uin=config['uin']
-    **config
-)
+nonebot.init(**config)
 app = nonebot.get_asgi()
 
 driver = nonebot.get_driver()
