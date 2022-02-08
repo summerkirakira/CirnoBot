@@ -4,6 +4,7 @@ import asyncio
 import json
 import time
 from functools import wraps
+from typing import Optional, Dict
 
 import websockets
 from websockets.exceptions import ConnectionClosedError, InvalidStatusCode
@@ -40,13 +41,22 @@ class MinecraftConnector:
             self.ws_tread.start()
             nonebot.logger.opt(colors=True).success(f"<g>与服务器: {server_uri}的ping test成功！</g>")
 
-    def get_server_name(self):
+    def get_server_name(self) -> str:
+        """
+        获取server的名称
+        :return: str
+        """
         if self.server_info:
             return self.server_info["name"]
         else:
             return "Server disconnected"
 
-    async def get_uuid_from_name(self, name):
+    async def get_uuid_from_name(self, name) -> Optional[str]:
+        """
+        从玩家的name获取uuid
+        :param name:
+        :return: Optional[str]
+        """
         for player in self.players:
             if player["Name"].lower() == name.lower():
                 return player["uuid"]
@@ -156,6 +166,10 @@ class MinecraftConnector:
                 await asyncio.sleep(10)
 
     def test_connection(self) -> bool:
+        """
+        测试连接可用性
+        :return: bool
+        """
         try:
             httpx.get(f"http://{self.server_uri}/v1/ping", headers={"key": self.auth_key})
             return True
@@ -166,108 +180,204 @@ class MinecraftConnector:
             return False
 
     async def get_server_info(self) -> dict:
+        """
+        获取服务器信息
+        :return: dict
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/server", headers={"key": self.auth_key})
             return json.loads(response.text)
 
     async def get_players(self) -> list:
+        """
+        获取当前在线玩家
+        :return: list
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/players", headers={"key": self.auth_key})
             return json.loads(response.text)
 
     async def get_worlds(self) -> dict:
+        """
+        获取服务器中的世界
+        :return: list
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/worlds", headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def get_specific_worlds(self, world_uuid):
+    async def get_specific_world(self, world_uuid: str) -> dict:
+        """
+        获取特定世界信息
+        :param world_uuid:
+        :return:
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/worlds/{world_uuid}",
                                         headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def save_world(self, world_uuid):
+    async def save_world(self, world_uuid: str):
+        """
+        存储特定的世界
+        :param world_uuid: str
+        :return:
+        """
         async with httpx.AsyncClient() as client:
             response = await client.post(f"http://{self.server_uri}/v1/worlds/{world_uuid}/save",
                                          headers={"key": self.auth_key})
             return json.loads(response.text)
 
     async def get_score_board(self) -> dict:
+        """
+        获取记分板
+        :return:
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/scoreboard", headers={"key": self.auth_key})
             return json.loads(response.text)
 
     async def get_specific_score_board(self, name: str) -> dict:
+        """
+        获取特定记分项
+        :param name:
+        :return:
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/scoreboard/{name}",
                                         headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def get_ops(self):
+    async def get_ops(self) -> list:
+        """
+        获取服务器当前的OP
+        :return: list
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/ops", headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def set_op(self, name):
+    async def set_op(self, name: str) -> dict:
+        """
+        根玩家名字设定OP
+        :param name:
+        :return:
+        """
         response = await self.execute_command(f"op {name}")
         return response
 
-    async def remove_op(self, name):
+    async def remove_op(self, name) -> dict:
+        """
+        移除特定管理员
+        :param name:
+        :return:
+        """
         response = await self.execute_command(f"deop {name}")
         return response
 
-    async def get_all_players(self):
+    async def get_all_players(self) -> list:
+        """
+        获取服务器所有玩家，包括离线玩家
+        :return:
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/players/all", headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def get_inventory(self, player_uuid, world_uuid):
+    async def get_inventory(self, player_uuid: str, world_uuid: str) -> dict:
+        """
+        获取特定玩家在特定世界中的背包
+        :param player_uuid: str
+        :param world_uuid: str
+        :return: dict
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/players/{player_uuid}/{world_uuid}/inventory",
                                         headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def broadcast(self, message: str):
+    async def broadcast(self, message: str) -> dict:
+        """
+        在服务器公频广播消息
+        :param message: str
+        :return: dict
+        """
         async with httpx.AsyncClient() as client:
             response = await client.post(f"http://{self.server_uri}/v1/chat/broadcast", headers={"key": self.auth_key},
                                          data={"message": message})
             return json.loads(response.text)
-        # response = await self.execute_command(f"say {message}")
-        # return response
 
-    async def tell(self, player_uuid, message: str):
+    async def tell(self, player_uuid: str, message: str) -> dict:
+        """
+        向指定玩家发送消息
+        :param player_uuid: str
+        :param message: str
+        :return: dict
+        """
         async with httpx.AsyncClient() as client:
             response = await client.post(f"http://{self.server_uri}/v1/chat/tell", headers={"key": self.auth_key},
                                          data={"playerUuid": player_uuid, "message": message})
             return json.loads(response.text)
 
-    async def get_plugins(self):
+    async def get_plugins(self) -> list:
+        """
+        获取服务器当前插件列表
+        :return: list
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/plugins", headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def get_white_list(self):
+    async def get_white_list(self) -> list:
+        """
+        获取当前白名单
+        :return: list
+        """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/server/whitelist", headers={"key": self.auth_key})
             return json.loads(response.text)
 
-    async def white_list_on(self):
+    async def white_list_on(self) -> dict:
+        """
+        获取白名单
+        :return: dict
+        """
         response = await self.execute_command("whitelist on")
         return response
 
-    async def white_list_off(self):
+    async def white_list_off(self) -> dict:
+        """
+        关闭白名单
+        :return: dict
+        """
         response = await self.execute_command("whitelist off")
         return response
 
-    async def add_white_list(self, name):
+    async def add_white_list(self, name: str) -> dict:
+        """
+        根据玩家名字添加白名单
+        :param name:
+        :return:
+        """
         response = await self.execute_command(f"whitelist add {name}")
         return response
 
-    async def remove_white_list(self, name):
+    async def remove_white_list(self, name: str) -> dict:
+        """
+        根据玩家名字移除白名单
+        :param name: str
+        :return: dict
+        """
         response = await self.execute_command(f"whitelist remove {name}")
         return response
 
-    async def execute_command(self, command: str, time: int = 100000):
+    async def execute_command(self, command: str, time: int = 100000) -> dict:
+        """
+        在服务器执行特定命令
+        :param command: 命令，无需/
+        :param time: 作用未知
+        :return: dict
+        """
         async with httpx.AsyncClient() as client:
             try:
                 response = await client.post(f"http://{self.server_uri}/v1/server/exec", headers={"key": self.auth_key},
@@ -279,7 +389,13 @@ class MinecraftConnector:
             except httpx.ReadTimeout as e:
                 return {'msg': "this command has no return"}
 
-    async def placeholder_api(self, message, uuid=None):
+    async def placeholder_api(self, message: str, uuid=None) -> dict:
+        """
+        根据placeholderAPI字符串获取处理后的字符串, 当使用%player%时 uuid 为目标玩家
+        :param message: str
+        :param uuid: str
+        :return: str
+        """
         async with httpx.AsyncClient() as client:
             if uuid:
                 data = {
