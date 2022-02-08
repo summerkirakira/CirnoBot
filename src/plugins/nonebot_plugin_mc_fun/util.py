@@ -41,13 +41,13 @@ async def message_preprocess(message, server: MinecraftConnector, enable_placeho
         return await server.placeholder_api(message, uuid=uuid)
     else:
         parsed_message = message
-        if "%player%" in parsed_message:
-            parsed_message = parsed_message.replace("%player%", await server.get_name_from_uuid(uuid))
+        if "%player_name%" in parsed_message:
+            parsed_message = parsed_message.replace("%player_name%", await server.get_name_from_uuid(uuid))
         if "%server" in parsed_message:
             server_info = await server.get_server_info()
-        if "%player_num%" in parsed_message:
+        if "%server_online%" in parsed_message:
             players = await server.get_players()
-            parsed_message = parsed_message.replace("%player_num%", str(len(players)))
+            parsed_message = parsed_message.replace("%server_online%", str(len(players)))
         if "%server_name%" in parsed_message:
             parsed_message = parsed_message.replace("%server_name%", server_info['name'])
         return parsed_message
