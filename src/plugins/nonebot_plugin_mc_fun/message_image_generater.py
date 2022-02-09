@@ -157,6 +157,9 @@ def make_single_plugin_image(plugin_dict: dict, index):
     VERSION_BLOCK_WIDTH = 400
     message_drawer.text((NAME_MARGIN_LEFT, name_margin_top), text=plugin_dict["name"], font=name_font, fill="#000000")
 
+    if len(plugin_dict["version"]) > 25:
+        plugin_dict["version"] = plugin_dict["version"][:25]
+
     message_drawer.text((NAME_MARGIN_LEFT + NAME_BLOCK_WIDTH, name_margin_top), text=plugin_dict["version"],
                         font=text_font, fill="#000000")
     if len(message_list) == 1:

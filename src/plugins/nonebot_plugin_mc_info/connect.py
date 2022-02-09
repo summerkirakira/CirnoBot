@@ -32,24 +32,12 @@ class MinecraftConnector:
         self.players: List[dict] = []
         if not self.test_connection():
             self.connected = False
-            self.server_info = self.get_server_info()
             self.ws_tread = self.WebSocketThread(self._ws_connect)
             self.ws_tread.start()
         else:
-            self.server_info = self.get_server_info()
             self.ws_tread = self.WebSocketThread(self._ws_connect)
             self.ws_tread.start()
             nonebot.logger.opt(colors=True).success(f"<g>与服务器: {server_uri}的ping test成功！</g>")
-
-    def get_server_name(self) -> str:
-        """
-        获取server的名称
-        :return: str
-        """
-        if self.server_info:
-            return self.server_info["name"]
-        else:
-            return "Server disconnected"
 
     async def get_uuid_from_name(self, name) -> Optional[str]:
         """
@@ -79,7 +67,7 @@ class MinecraftConnector:
         for player in self.players:
             if player["uuid"] == uuid:
                 return player["Name"]
-        raise ValueError
+        return '未知'
 
     async def process_player_chat(self, message) -> dict:
         """
@@ -155,11 +143,11 @@ class MinecraftConnector:
                         if int(round(time.time() * 1000)) - message["timestampMillis"] > 10000:
                             # 超过5s的记录将不会执行
                             continue
-                        if message['loggerName'] == 'net.minecraft.server.players.PlayerList' and "logged in" in message["message"]:
+                        if "logged in" in message["message"]:
                             self.login_event.append(message)
                             for listener in self.listener_dict['on_player_login']:
                                 await listener(message=message, server=self)
-                        elif message['loggerName'] == 'net.minecraft.server.network.PlayerConnection' and 'Disconnected' in message['message']:
+                        elif 'lost connection' in message['message']:
                             self.logout_event.append(message)
                             for listener in self.listener_dict['on_player_disconnected']:
                                 await listener(message=message, server=self)
@@ -324,7 +312,11 @@ class MinecraftConnector:
         async with httpx.AsyncClient() as client:
             response = await client.post(f"http://{self.server_uri}/v1/chat/broadcast", headers={"key": self.auth_key},
                                          data={"message": message})
-            return json.loads(response.text)
+            if '500' in response.text:
+                response = await self.execute_command(f'say {message}')
+                return response
+            else:
+                return response.text
 
     async def tell(self, player_uuid: str, message: str) -> dict:
         """

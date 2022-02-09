@@ -32,13 +32,16 @@ def load_plugins():
             if bot_config["plugins_config"][plugin_name]["enabled"]:
                 plugin_path = check_config_path_valid(plugin_name)
                 if plugin_path:
-                    if len(bot_config["plugins_config"][plugin_name].keys()) > 1:
+                    if len(bot_config["plugins_config"][plugin_name].keys()) > 1 :
                         plugin_config = get_config(plugin_path)
                         for key in bot_config["plugins_config"][plugin_name]:
-                            if key != 'enabled':
+                            if key != 'enabled' and key != 'plugin_folder':
                                 plugin_config[key] = bot_config["plugins_config"][plugin_name][key]
                         save_config_to_yaml(plugin_config, plugin_path)
                 if os.path.exists(os.path.join('src', 'plugins', plugin_name)):
-                    nonebot.load_plugin(f"src.plugins.{plugin_name}")
+                    if 'plugin_folder' in bot_config["plugins_config"][plugin_name]:
+                        nonebot.load_plugins(f"src/plugins/{plugin_name}")
+                    else:
+                        nonebot.load_plugin(f"src.plugins.{plugin_name}")
                 else:
                     nonebot.load_plugin(plugin_name)

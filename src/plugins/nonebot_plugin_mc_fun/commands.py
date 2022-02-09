@@ -27,9 +27,9 @@ set_op = on_startswith(".添加管理员", priority=18)
 # 添加OP
 remove_op = on_startswith(".移除管理员", priority=19)
 # 移除OP
-tell = on_startswith(".聊天", priority=20)
+tell = on_startswith(".转发", priority=20)
 # 与服务器内玩家聊天
-chat_record = on_startswith(".消息记录", priority=20)
+chat_record = on_startswith(".聊天记录", priority=20)
 # 获取服务器最近十条消息
 set_current_server = on_startswith(".绑定服务器", priority=18)
 # 绑定优先服务器
@@ -218,7 +218,7 @@ async def _remove_op(bot: Bot, event: GroupMessageEvent):
 
 @tell.handle()
 async def _tell(bot: Bot, event: GroupMessageEvent):
-    message = event.get_plaintext().replace(".聊天", "").strip()
+    message = event.get_plaintext().replace(".转发", "").strip()
     server_config, server = get_group_bind_server(event.group_id)
     if not server_config:
         await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))

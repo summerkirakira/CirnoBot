@@ -18,12 +18,15 @@ default_config = {
     "auto_reply_dict": {"hello": "world"},
     "auto_reply_start": ".",
 
+    "forward_to_qq": False,
+    "forward_enabled_groups": [],
+
     "join_event_qq_broadcast": True,
-    "join_event_qq_message": "小伙伴%player%加入服务器%server_name%了哦～当前服务器人数%server_online%人",
+    "join_event_qq_message": "小伙伴%player_name%加入服务器%server_name%了哦～当前服务器人数%server_online%人",
     "join_event_qq_broadcast_group": [],
 
     "leave_event_qq_broadcast": True,
-    "leave_event_qq_message": "小伙伴%player%离开服务器了呢～当前服务器人数%player_num%人哦",
+    "leave_event_qq_message": "小伙伴%player_name%离开服务器了呢～当前服务器人数%server_online%人哦",
     "leave_event_qq_broadcast_group": [],
 
     "command_translator": True,

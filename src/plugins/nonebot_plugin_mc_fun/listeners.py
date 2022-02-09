@@ -11,20 +11,25 @@ async def _chat_event(message, server: MinecraftConnector):
     message_info = await server.process_player_chat(message)
     configs = get_config()
     for config in configs:
-        if server.server_uri == config["server_uri"] and config["auto_reply"]:
-            if message_info["message"].startswith(config["auto_reply_start"]):
-                message_info["message"] = message_info["message"][1:]
-            else:
-                break
-            if message_info["message"] in config["auto_reply_dict"]:
-                await server.tell(message_info["uuid"],
-                                  await message_preprocess(
-                                      message=config["auto_reply_dict"][message_info["message"]],
-                                      uuid=message_info["uuid"],
-                                      enable_placeholder_api=config["enable_placeholder_api"],
-                                      server=server
-                                  ))
-                break
+        if server.server_uri == config["server_uri"]:
+            if config["auto_reply"]:
+                if message_info["message"].startswith(config["auto_reply_start"]):
+                    dict_key = message_info["message"][1:]
+                    if dict_key in config["auto_reply_dict"]:
+                        await server.tell(message_info["uuid"],
+                                          await message_preprocess(
+                                              message=config["auto_reply_dict"][dict_key],
+                                              uuid=message_info["uuid"],
+                                              enable_placeholder_api=config["enable_placeholder_api"],
+                                              server=server
+                                          ))
+            if message_info['message'].startswith('.转发') and config['forward_to_qq']:
+                group_message = message_info['message'].replace(".转发", '').strip()
+                if group_message:
+                    server_info = await server.get_server_info()
+                    for group_id in config["forward_enabled_groups"]:
+                        await safe_send("group", group_id,
+                                        f"[{server_info['name']}]<{message_info['name']}>{group_message}")
 
 
 @MinecraftConnector.handle('on_player_login')
