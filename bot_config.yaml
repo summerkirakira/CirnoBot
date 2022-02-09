@@ -48,13 +48,11 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
   nonebot_plugin_archive: # 词条系统
     enabled: true # 是否开启
     only_admin_can_edit: false # 是否仅允许管理员编辑
+  nonebot_plugin_help: # 帮助系统
+    enabled: true # 是否开启
 
-  nonebot_plugin_genshin_impact_bot:
-    plugin_folder: true # 是否插件文件夹
-    enabled: true
-
-  nonebot_plugin_gocqhttp: # 来自mix佬的在nonebot进程中运行gocq!(无需独立启动来运行QQ）
-    enabled: true # 如果你有将bot和nonebot放在不同服务器的需求，请禁用此项（别忘了把最上面的host改成0.0.0.0哦）
+#  nonebot_plugin_gocqhttp: # 来自mix佬的在nonebot进程中运行gocq!(无需独立启动来运行QQ）
+#    enabled: true # 如果你有将bot和nonebot放在不同服务器的需求，请禁用此项（别忘了把最上面的host改成0.0.0.0哦）
 
 command_start:
   - .
@@ -62,5 +60,6 @@ command_start:
 nickname:
   - 小九
   - 琪露诺
+
 
 

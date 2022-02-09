@@ -140,32 +140,32 @@ class Config(BaseSettings):
                 'text': '不准举！你举得动吗！？',
                 'image': 'dcf07a381f30e9240bf68c845b086e061c95f72a.jpg'
             },
-            '^小九.?': [
-                {
-                    'text': '以为这样咱就会理你了吗？想太美了！',
-                    'image': 'b9b6a819ebc4b745e7b5f77ed8fc1e178b82159c.jpg'
-                },
-                {
-                    'text': '叫咱就为这点事呀～',
-                    'image': 'bcc759a7d933c89589fe032bc61373f0800200c5.jpg'
-                },
-                {
-                    'text': '呀呀呀～吃我一拳！',
-                    'image': '2db214b30f2442a7b14354cac643ad4bd0130277.jpg'
-                },
-                {
-                    'text': '煩い！',
-                    'image': '473867A7FD46FD3063EC72D1B4CAC046.jpg'
-                },
-                {
-                    'text': '',
-                    'image': 'C2B902C72FF90997EAF73761FD41D2C6.jpg'
-                },
-                {
-                    'text': '',
-                    'image': '2db214b30f2442a7b14354cac643ad4bd0130277.jpg'
-                }
-            ],
+            # '^小九.?': [
+            #     {
+            #         'text': '以为这样咱就会理你了吗？想太美了！',
+            #         'image': 'b9b6a819ebc4b745e7b5f77ed8fc1e178b82159c.jpg'
+            #     },
+            #     {
+            #         'text': '叫咱就为这点事呀～',
+            #         'image': 'bcc759a7d933c89589fe032bc61373f0800200c5.jpg'
+            #     },
+            #     {
+            #         'text': '呀呀呀～吃我一拳！',
+            #         'image': '2db214b30f2442a7b14354cac643ad4bd0130277.jpg'
+            #     },
+            #     {
+            #         'text': '煩い！',
+            #         'image': '473867A7FD46FD3063EC72D1B4CAC046.jpg'
+            #     },
+            #     {
+            #         'text': '',
+            #         'image': 'C2B902C72FF90997EAF73761FD41D2C6.jpg'
+            #     },
+            #     {
+            #         'text': '',
+            #         'image': '2db214b30f2442a7b14354cac643ad4bd0130277.jpg'
+            #     }
+            # ],
             '.*我爱你.*': [
                 {
                     'text': '',

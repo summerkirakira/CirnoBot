@@ -33,7 +33,7 @@ class Config(BaseSettings):
             "印尼卢比": "IDR",
             "新西兰元": "NZD",
             "新加坡元": "SGD",
-            "泰国铢": "THB",
+            "泰铢": "THB",
             "瑞典克朗": "SEK",
             "瑞士法郎": "CHF",
             "卢布": "RUB",

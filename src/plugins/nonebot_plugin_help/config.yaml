@@ -1,0 +1,108 @@
+- series: Minecraft 功能
+  commands:
+    - command: .绑定服务器
+      parameters: 服务器域名+serverTap端口，需在文件中配置
+      description: 绑定当前群的mc服务器，所有mc功能基础
+
+    - command: .mc
+      parameters: 无参数
+      description: Minecraft 服务器状态查询 (需要先绑定服务器)
+
+    - command: .玩家查询
+      parameters: 服务器玩家ID
+      description: 查询当前服务器玩家信息
+
+    - command: .开启白名单
+      parameters: 无参数
+      description: 打开当前绑定服务器白名单，超级用户功能
+
+    - command: .关闭白名单
+      parameters: 无参数
+      description: 关闭当前绑定服务器白名单，超级用户功能
+
+    - command: .踢出白名单
+      parameters: 玩家ID
+      description: 将某位玩家移出服务器白名单，超级用户功能
+
+    - command: .添加管理员
+      parameters: 玩家ID
+      description: 为当前绑定服务器添加一位管理员，超级用户功能
+
+    - command: .移除管理员
+      parameters: 玩家ID
+      description: 为当前绑定服务器移除一位管理员，超级用户功能
+
+    - command: .申请白名单
+      parameters: 待申请ID
+      description: 申请白名单，且游戏ID与QQ号绑定，同一时间只可绑定一个ID
+
+    - command: .转发
+      parameters: 需要转发的消息
+      description: 与服务器玩家聊天（转发到当前绑定服务器）
+
+    - command: .聊天记录
+      parameters: 无参数
+      description: 获取mc服务器最近十条消息
+
+    - command: .mc词条
+      parameters: 词条名#待回应内容
+      description: 在mc中调用.词条名即可自动回应，可使用PlaceholderAPI与颜色代码
+
+    - command: .指令
+      parameters: 指令（无需添加/）
+      description: 在QQ中执行mc指令, 超级用户功能
+
+    - command: .插件列表
+      parameters: 无参数
+      description: 获取当前绑定服务器插件列表
+
+- series: 群词条库
+  commands:
+    - command: .编辑词条
+      parameters: 词条名#自动回复内容
+      description: 编辑群词条库，在群聊中使用.词条名即可自动回复，回复内容支持图片信息
+    - command: .移除词条
+      parameters: 词条名
+      description: 移除词条库中的内容
+    - command: .专属词条
+      parameters: 词条名#自动回复内容
+      description: 让小九回复特定的你，只有编辑者才可触发
+    - command: .词条
+      parameters: 无参数
+      description: 列出当前群所有公开词条
+    - command: .
+      parameters: 词条名(直接跟在.后面)
+      description: 自动回复设定的词条内容
+
+- series: 汇率转换
+  commands:
+    - command: .美元/港币/日元...
+      parameters: 数量
+      description: 转换各种货币至人民币
+
+- series: 开黑啦
+  commands:
+    - command: .开黑啦
+      parameters: 无参数
+      description: 获取当前服务器绑定的开黑啦在线信息
+
+- series: MC骰娘
+  commands:
+    - command: .r[dah#bp] a_number
+      parameters: 略
+      description: 在mc中执行命令！一个完整的mc跑团骰娘！
+
+- series: MC服务器功能
+  commands:
+    - command: .转发
+      parameters: 待转发信息
+      description: 在mc服务器执行，转发指定消息至指定的QQ群(们)
+    - command: .
+      parameters: 词条名(直接跟在.后面)
+      description: 在mc服务器执行，服务器中自动回复设定的词条内容
+
+- series: 帮助
+  commands:
+    - command: .帮助
+      parameters: 无参数
+      description: 获取帮助

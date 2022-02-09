@@ -17,7 +17,7 @@ player_search = on_startswith(".玩家查询", priority=16)
 # 玩家查询
 set_white_list = on_startswith(".申请白名单", priority=14)
 # 申请白名单
-remove_white_list = on_startswith(".移除白名单", priority=17)
+remove_white_list = on_startswith(".踢出白名单", priority=17)
 # 移除白名单
 white_list_on = on_startswith(".开启白名单", priority=15)
 # 打开白名单
@@ -149,7 +149,7 @@ async def _set_white_list(bot: Bot, event: GroupMessageEvent):
 
 @remove_white_list.handle()
 async def _remove_white_list(bot: Bot, event: GroupMessageEvent):
-    player_id = event.get_plaintext().replace(".移除白名单", "").strip()
+    player_id = event.get_plaintext().replace(".踢出白名单", "").strip()
     server_config, server = get_group_bind_server(event.group_id)
     if not server_config:
         await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))

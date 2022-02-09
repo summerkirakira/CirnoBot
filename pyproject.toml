@@ -13,7 +13,7 @@ nonebot2 = "^2.0.0-beta.1"
 nb-cli = "^0.6.0"
 
 [tool.nonebot]
-plugins = ["nonebot_plugin_test", "nonebot_plugin_gocqhttp", "haruka_bot"]
+plugins = ["nonebot_plugin_test", "nonebot_plugin_gocqhttp", "haruka_bot", "nonebot_plugin_gamedraw"]
 plugin_dirs = ["src/plugins"]
 
 [build-system]
