@@ -2,7 +2,6 @@ from pydantic import BaseSettings
 
 
 class Config(BaseSettings):
-    # Your Config Here
 
     class Config:
         extra = "ignore"
@@ -40,52 +39,6 @@ class Config(BaseSettings):
             '再戳再戳再戳！',
             '抱抱～',
             '抱住胳膊就是一口！'
-        ]
-        cute_pictures_url = [
-            'http://home.kirakira.vip:8120/uploads/big/e658ac363ab0f5a5d20039c13937457a.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/ebfa7fdea056ad5e6d06d026df942d21.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/0723264fa1b5b0f817c6b7f04ecaac10.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/b5c8660898620ba346db749105b5c4ec.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/625568051675c4116235e78701a66fcf.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/661677f15cb35273f97f82274d4b0303.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/51020c23c3fb37226f2d5fedb4716af6.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/517de1c27b182d5dbf74a6532863bb72.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/9f44ae5f64cbe167227256879ded23d6.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/4e5079d0584b77548edfe56b14e1ab23.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/8eb0a077b90ae4c2a9004fa748be5a61.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/c239c48a99616b28b3466182c8b2d737.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/1c16eed3f92a664edde23a50daad8cdd.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/27b9990c2ae06e9ae44d9cdeff4fdab7.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/e142745607b4a5ed9c843e13bb271003.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/3f20c811de8820aedad63bf5a2ef9d0d.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/30636bed3c9e2e2027f42097abb6a6aa.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/ea10f9667e586f51ac55b0d0f330cb0e.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/dd304d6d8763ea97290dd9457e260487.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/0196abc1762a6905d8e1105dffcc9d13.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/19504feec62048ecc3e8dd25a84bb1f8.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/52e4c56257bb692efb130b22098f5a3a.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/a5bcb4df6adf840a2d779e9ecc545870.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/60b000bb3f87f953d641d7c9bc523f98.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/3d5789aa1da779cb65d71f2375c98fbb.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/b590dcb9db07c5a11afe01081805b35a.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/464f90c7f4bb5f4345d3844a630640a4.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/ec6c24126c46edec5a7303e30138c796.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/819eaf913021df16dbfad83c305fb726.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/5e5d96775c5ccf2f0b8fad24357ffa7b.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/1ce882ca1c8d67cc69dc1115f1c48856.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/f1ed41fbb34dc082291e7b68904ba439.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/74d090c748c68b17b738db048c9f268c.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/a339fd4fa68edd51240c9137a6243949.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/e04ba93a8246627a7c987417470353b1.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/b6a30ecc6fdc886d7df798e2b430ad69.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/814a6550695512756deed79bfa5329c2.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/ac9a7321d722779eb65cc26a85e74979.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/354bbf441eadda53a64e60433e164ed7.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/e9e17bd257a443c81b7dcfe1244d1879.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/fa36119952d151caf3a9f2726d6af665.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/e658ac363ab0f5a5d20039c13937457a.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/ebfa7fdea056ad5e6d06d026df942d21.jpg',
-            'http://home.kirakira.vip:8120/uploads/big/0723264fa1b5b0f817c6b7f04ecaac10.jpg'
         ]
         basic_response_dict = {
             '早[早上安好呀]': [

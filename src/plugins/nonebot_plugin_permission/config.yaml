@@ -1,9 +1,0 @@
-permission_check: false
-only_admin_user: false
-group_check:
-  12345667:
-  - 12334
-  - 12334
-black_list:
-- 123123
-- 123234

@@ -1,11 +1,11 @@
 
 <div align=center>
-  <img width=200 src="doc/image/CirnoAvatar.jpeg"  alt="小九头像"/>
+  <img width=200 src="doc/image/CirnoAvatar.png"  alt="小九头像"/>
   <h1 align="center">CirnoBot</h1> 
 </div>
 <div align=center>
   <img src="https://img.shields.io/badge/python-3.8+-blue" alt="python">
-  <img src="https://img.shields.io/badge/nonebot-2+-red" alt="nonebot">
+  <img src="https://img.shields.io/badge/nonebot-2b1-red" alt="nonebot">
   <img src="https://img.shields.io/badge/servertap-0.20+-yellow" alt="servertap">
   <img src="https://img.shields.io/badge/minecraft-1.12+-green" alt="minecraft">
 </div>

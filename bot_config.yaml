@@ -15,10 +15,10 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
     enabled: true
 
   nonebot_plugin_currency_conversion: # 汇率转换
-    enabled: true
+    enabled: true # 如功能失效，请去 src/plugins/nonebot_plugin_currency_conversion/config.yaml 配置密钥
 
   nonebot_plugin_cute_message: # 正则匹配图文回复以及戳一戳回复
-    enabled: true
+    enabled: true # 请去 src/plugins/nonebot_plugin_cute_message/config.py 自定回复
 
   nonebot_plugin_database_connector: # 数据库连接件，词条及消息记录模块依赖，请勿关闭（如果你不知道自己在做什么的话）>_<
     enabled: true
@@ -48,11 +48,12 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
   nonebot_plugin_archive: # 词条系统
     enabled: true # 是否开启
     only_admin_can_edit: false # 是否仅允许管理员编辑
+
   nonebot_plugin_help: # 帮助系统
     enabled: true # 是否开启
 
-#  nonebot_plugin_gocqhttp: # 来自mix佬的在nonebot进程中运行gocq!(无需独立启动来运行QQ）
-#    enabled: true # 如果你有将bot和nonebot放在不同服务器的需求，请禁用此项（别忘了把最上面的host改成0.0.0.0哦）
+  nonebot_plugin_gocqhttp: # 来自mix佬，在nonebot进程中运行gocq!(无需独立启动来运行QQ）
+    enabled: true # 如果你有将bot和nonebot放在不同服务器的需求，请禁用此项（别忘了把最上面的host改成0.0.0.0哦）
 
 command_start:
   - .
