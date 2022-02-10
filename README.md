@@ -12,12 +12,12 @@
 
 ### 琪露诺Bot
 
-
+---
 专注Minecraft (加点亿点点娱乐实用功能）的QQ机器人，基于nonebot2, gocqhttp, serverTap开发的琪露诺家族的第三代成员。
 
 ### 实现功能
 
-
+---
 + Minecraft相关
   + [x] 服务端版本支持Bukkit, Spigot&PaperMC 1.12-1.18.1
   + [x] 多服务器同时监听支持
@@ -54,7 +54,7 @@
 
 ### 实现截图
 
-
+---
 <details>
 <summary>部分截图</summary>
 
@@ -72,7 +72,7 @@
 
 ### 简单部署
 
-
+---
 1.下载CirnoBot本体
 ```shell
 git clone https://github.com/summerkirakira/CirnoBot.git # 下载CirnoBot文件
