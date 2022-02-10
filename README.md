@@ -12,19 +12,19 @@
 
 ### 琪露诺Bot
 
----
+
 专注Minecraft (加点亿点点娱乐实用功能）的QQ机器人，基于nonebot2, gocqhttp, serverTap开发的琪露诺家族的第三代成员。
 
 ### 实现功能
 
----
+
 + Minecraft相关
   + [x] 服务端版本支持Bukkit, Spigot&PaperMC 1.12-1.18.1
   + [x] 多服务器同时监听支持
   + [x] 分群服务器绑定支持
   + [x] 分服务器超级用户支持
-  + [x] 入服离服事件QQ群播报
-  + [x] 入服离服事件MC服务器播报
+  + [x] 入服/离服事件QQ群播报
+  + [x] 入服/离服事件MC服务器播报
   + [x] 玩家聊天消息监听，支持自定词条自动回复（mc骰娘已移植）
   + [x] 所有广播/私聊消息均可支持颜色代码与PlaceholderAPI
   + [x] MC服务器在线信息查询（内存占用，版本，在线玩家）
@@ -43,7 +43,7 @@
   + [x] 在群聊中动态编辑词条
   + [x] 支持群成员专属词条
   + [x] 分群启用不同的词条库
-  + [x] 词条库由sqlite存储，无需开启my_sql服务
+  + [x] 词条库由sqlite存储，无需开启mysql服务
   + [x] 美元/港币/日元...阿联酋迪拉姆... 货币转换支持
   + [x] 开黑啦在线成员/语音频道查询支持
   + [x] 完整的功能帮助
@@ -54,7 +54,7 @@
 
 ### 实现截图
 
----
+
 <details>
 <summary>部分截图</summary>
 
@@ -72,7 +72,7 @@
 
 ### 简单部署
 
----
+
 1.下载CirnoBot本体
 ```shell
 git clone https://github.com/summerkirakira/CirnoBot.git # 下载CirnoBot文件
