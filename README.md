@@ -9,6 +9,10 @@
   <img src="https://img.shields.io/badge/servertap-0.20+-yellow" alt="servertap">
   <img src="https://img.shields.io/badge/minecraft-1.12+-green" alt="minecraft">
 </div>
+<div align=center>
+  <a href="https://biaoju.site/cirnobot/">文档</a>
+  <a href="https://biaoju.site/cirnobot/docs/%E7%AE%80%E5%8D%95%E4%B8%8A%E6%89%8B">运行</a>
+</div>
 
 ### 琪露诺Bot
 
@@ -87,3 +91,10 @@ pip install -r requirements.txt # 安装python依赖
 ```shell
 nb run # 启动bot！
 ```
+
+### 详细配置
+请参考[文档](https://biaoju.site/cirnobot/)
+
+### To do
+- [ ] docker
+- [ ] web端 (永远不会做X)
