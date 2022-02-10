@@ -9,7 +9,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea
-*/*.yaml
+*/config.yaml
 data.db
 # C extensions
 *.so

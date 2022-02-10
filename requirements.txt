@@ -48,7 +48,7 @@ nonebot-plugin-gamedraw==0.2.4
 nonebot-plugin-gocqhttp==0.4.2
 nonebot2==2.0.0b1
 packaging==20.9
-Pillow==8.4.0
+Pillow==9.0.1
 poyo==0.5.0
 prompt-toolkit==3.0.26
 psutil==5.9.0
