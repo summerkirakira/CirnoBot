@@ -27,8 +27,11 @@ async def connect_to_mc_server():
     export.mc_server_list = server_lists
 
 
+@driver.on_shutdown
+async def disconnect_to_mc_server():
+    global server_list
+    server_list = None
 # Export something for other plugin
-
 
 
 @export.mc

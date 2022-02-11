@@ -80,24 +80,25 @@ async def _player_search(bot: Bot, event: GroupMessageEvent):
         return
 
     online_players = await server.get_players()
-    for player in online_players:
-        if player["displayName"].lower() == player_id.lower():
-            player_message = f"玩家id: {player['displayName']}\n玩家状态: 在线\n是否管理员: {'是' if player['op'] else '否'}\n" \
-                             f"玩家血量: {int(player['health'])}({round(player['health'] / 20 * 100)}%)\n" \
-                             f"玩家饥饿值: {int(player['hunger'])}({round(player['hunger'] / 20 * 100)}%)\n" \
-                             f"玩家位置: {int(player['location'][0])},{int(player['location'][1])},{int(player['location'][2])}"
-            if server_config["enable_placeholder_api"]:
-                player_uuid = await server.get_uuid_from_name(player_id)
-                if player_uuid:
-                    extra_info = await server.placeholder_api("%player_last_join%#%player_ping%", uuid=player_uuid)
-                    [last_play_time, player_ping] = extra_info.split("#")
-                    time_string = time.strftime("%m月%d日 %H时%M分", time.localtime(int(last_play_time) / 1000))
-                    player_message += f"\n玩家延迟: {player_ping}ms\n最后登录: {time_string}"
-            await bot.send(event, Message(MessageSegment.text(player_message)))
-            return
     all_players = await server.get_all_players()
     for player in all_players:
         if player["Name"].lower() == player_id.lower():
+            for online_player in online_players:
+                if online_player["uuid"] == player['uuid']:
+                    player_message = f"玩家id: {online_player['displayName']}\n玩家状态: 在线\n是否管理员: {'是' if online_player['op'] else '否'}\n" \
+                                     f"玩家血量: {int(online_player['health'])}({round(online_player['health'] / 20 * 100)}%)\n" \
+                                     f"玩家饥饿值: {int(online_player['hunger'])}({round(online_player['hunger'] / 20 * 100)}%)\n" \
+                                     f"玩家位置: {int(online_player['location'][0])},{int(online_player['location'][1])},{int(online_player['location'][2])}"
+                    if server_config["enable_placeholder_api"]:
+                        player_uuid = await server.get_uuid_from_name(player_id)
+                        if player_uuid:
+                            extra_info = await server.placeholder_api("%player_last_join%#%player_ping%",
+                                                                      uuid=player_uuid)
+                            [last_play_time, player_ping] = extra_info.split("#")
+                            time_string = time.strftime("%m月%d日 %H时%M分", time.localtime(int(last_play_time) / 1000))
+                            player_message += f"\n玩家延迟: {player_ping}ms\n最后登录: {time_string}"
+                    await bot.send(event, Message(MessageSegment.text(player_message)))
+                    return
             player_message = f"玩家id: {player['Name']}\n玩家状态: 离线\n是否管理员: {'是' if player['op'] else '否'}"
             if server_config["enable_placeholder_api"]:
                 player_uuid = await server.get_uuid_from_name(player_id)

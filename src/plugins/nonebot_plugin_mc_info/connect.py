@@ -143,7 +143,7 @@ class MinecraftConnector:
                         if int(round(time.time() * 1000)) - message["timestampMillis"] > 10000:
                             # 超过5s的记录将不会执行
                             continue
-                        if "logged in" in message["message"]:
+                        if "logged in with entity id" in message["message"] and 'minecraft' in message["loggerName"]:
                             self.login_event.append(message)
                             for listener in self.listener_dict['on_player_login']:
                                 await listener(message=message, server=self)
