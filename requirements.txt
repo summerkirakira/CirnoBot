@@ -44,13 +44,14 @@ nb-cli==0.6.5
 nonebot-adapter-onebot==2.0.0b1
 nonebot-plugin-apscheduler==0.1.2
 nonebot-plugin-gamedraw==0.2.4
-nonebot-plugin-gocqhttp==0.4.2
+nonebot-plugin-gocqhttp==0.4.4
 nonebot2==2.0.0b1
 packaging==20.9
 Pillow==9.0.1
 poyo==0.5.0
 prompt-toolkit==3.0.26
 psutil==5.9.0
+py-cpuinfo==8.0.0
 pyasn1==0.4.8
 pydantic==1.9.0
 pyee==8.1.0
@@ -85,6 +86,7 @@ tzlocal==4.1
 ujson==5.1.0
 urllib3==1.26.8
 uvicorn==0.15.0
+uvloop==0.16.0
 waitress==2.0.0
 watchgod==0.7
 wcwidth==0.2.5
