@@ -3,7 +3,7 @@ from nonebot.adapters.onebot.v11 import Bot, Event, GroupMessageEvent, MessageSe
 from .generate_help_image import get_help
 
 
-help_image = on_startswith('.帮助', priority=14)
+help_image = on_startswith('.帮助', priority=3, block=True)
 
 
 @help_image.handle()

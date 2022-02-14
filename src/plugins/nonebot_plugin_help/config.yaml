@@ -101,6 +101,45 @@
       parameters: 词条名(直接跟在.后面)
       description: 在mc服务器执行，服务器中自动回复设定的词条内容
 
+- series: 今天吃什么
+  commands:
+    - command: 今天吃什么
+      parameters: 无
+      description: 选择恐惧症？让Bot建议你今天吃什么！见What to Eat
+    - command: .添加 / .移除
+      parameters: 待添加菜单
+      description: 管理或群主或超管 添加或移除菜单！
+    - command: .群菜单
+      parameters: 无
+      description: 查看当前菜单
+
+- series: 塔罗牌
+  commands:
+    - command: .占卜
+      parameters: 无
+      description: 占卜4张塔罗牌
+    - command: .塔罗牌
+      parameters: 无
+      description: 得到单张塔罗牌回应
+
+- series: B站主播信息推送
+  commands:
+    - command: .添加主播 | .删除主播
+      parameters: 主播的uid
+      description: 该主播开播、更新动态、发布视频时均会在添加的位置收到推送消息
+    - command: .开启动态 | .关闭动态
+      parameters: 主播的uid
+      description: 关闭动态 后，将不会在当前位置（群聊/私聊）继续推送
+    - command: .开启直播 | .关闭直播
+      parameters: 主播的uid
+      description: 关闭直播 后，将不会在当前位置（群聊/私聊）继续推送
+    - command: .开启全体 | .关闭全体
+      parameters: 无
+      description: 开启全体 后，CirnoBot将会在该主播的开播提醒消息前 @全体成员。
+    - command: .开启权限 | .关闭权限
+      parameters: 无
+      description: 开启权限后，当前群内只有群主、管理员、和机器人主人（superuser）可以使用 HarukaBot。
+
 - series: 帮助
   commands:
     - command: .帮助
