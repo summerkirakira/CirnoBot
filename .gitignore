@@ -20,6 +20,11 @@ data.db
 */.DS_Store
 accounts/
 bin/
+data/
+new_bin/
+new_bin_3.10/
+new_bin_3.9.9/
+new_bin_3.8/
 build/
 develop-eggs/
 dist/

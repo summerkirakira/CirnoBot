@@ -1,7 +1,7 @@
 import nonebot
 from nonebot.params import State
-from nonebot import get_driver, Bot, on_message, on_notice
-from nonebot.adapters.onebot.v11 import Event, GroupMessageEvent, MessageSegment, Message
+from nonebot import get_driver, on_message, on_notice
+from nonebot.adapters.onebot.v11 import Event, GroupMessageEvent, MessageSegment, Message, Bot
 from nonebot.adapters.onebot.v11 import PokeNotifyEvent
 import random
 import re
@@ -46,10 +46,8 @@ cute_reply = on_message(rule=can_reply(), priority=30)
 
 
 @poke_reaction.handle()
-async def _poke_reaction(bot: Bot, event: Event):
-    if isinstance(event, PokeNotifyEvent) and event.target_id == int(bot.self_id):
-        if int(bot.self_id) not in Config.Config.enabled_poke:
-            return
+async def _poke_reaction(bot: Bot, event: PokeNotifyEvent):
+    if event.target_id == int(bot.self_id):
         message = random.choice(Config.Config.message_after_poke)
         message += random.choice(Config.Config.emoji) + '\n'
         with open(os.path.join(CIRNO_PICTURE_FOLDER, random.choice(cirno_pic_list)), 'rb') as f:
