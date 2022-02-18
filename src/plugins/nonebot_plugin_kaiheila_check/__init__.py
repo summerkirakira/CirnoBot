@@ -23,4 +23,4 @@ async def _kaihei_status_check(bot: Bot, event: Event):
 @driver.on_startup
 async def init():
     if not os.path.exists(os.path.join(current_folder, "config.yaml")):
-        save_config_to_yaml({"kai_hei_api_url": {"12345678": {"api_key": "", "invitation_link": ""}}})
+        save_config_to_yaml({"kai_hei_api_url": {12345678: {"api_key": "", "invitation_link": ""}}})
