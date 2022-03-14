@@ -2,6 +2,9 @@ from PIL import Image, ImageDraw, ImageFont
 import textwrap
 import os
 from .config import get_config, current_folder
+import nonebot
+
+bot_config = nonebot.get_driver().config
 
 
 def measure_length(text, font):
@@ -95,6 +98,8 @@ async def get_help():
     command_list = get_config()
     new_list = []
     for series in command_list:
+        if series['plugin_name'] not in bot_config.plugins_config:
+            continue
         for command in series['commands']:
             new_list.append({
                 'series': series['series'],
