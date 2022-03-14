@@ -394,10 +394,8 @@ async def _get_plugin_list(bot: Bot, event: GroupMessageEvent):
 async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
     server_config, server = get_group_bind_server(event.group_id)
     if not server_config:
-        await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))
         return
     if not server.connected:
-        await bot.send(event, Message(MessageSegment.text("服务器未连接呢～")))
         return
     sender_nickname = event.sender.nickname
     message = event.get_plaintext()
