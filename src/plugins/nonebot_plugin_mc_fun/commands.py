@@ -1,4 +1,4 @@
-from nonebot import on_startswith
+from nonebot import on_startswith, on_message
 from nonebot.matcher import Matcher, Bot
 from nonebot.adapters.onebot.v11.event import GroupMessageEvent
 from nonebot.adapters.onebot.v11.message import MessageSegment, Message
@@ -29,6 +29,8 @@ remove_op = on_startswith(".移除管理员", priority=19)
 # 移除OP
 tell = on_startswith(".转发", priority=20)
 # 与服务器内玩家聊天
+sync = on_message(priority=25)
+# 同步消息
 chat_record = on_startswith(".聊天记录", priority=20)
 # 获取服务器最近十条消息
 set_current_server = on_startswith(".绑定服务器", priority=18)
@@ -387,3 +389,17 @@ async def _get_plugin_list(bot: Bot, event: GroupMessageEvent):
         return
     image = await make_plugins_image(await server.get_plugins())
     await bot.send(event, Message(MessageSegment.image(image)))
+
+@sync.handle()
+async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
+    server_config, server = get_group_bind_server(event.group_id)
+    if not server_config:
+        await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))
+        return
+    if not server.connected:
+        await bot.send(event, Message(MessageSegment.text("服务器未连接呢～")))
+        return
+    sender_nickname = event.sender.nickname
+    message = event.get_plaintext()
+    if "sync_with_qq" not in server_config or server_config["sync_with_qq"]:
+        await server.broadcast(f"[QQ]<{sender_nickname}> {message}")

@@ -19,6 +19,7 @@ default_config = {
     "auto_reply_start": ".",
 
     "forward_to_qq": False,
+    "sync_with_qq": True,
     "forward_enabled_groups": [],
 
     "join_event_qq_broadcast": True,

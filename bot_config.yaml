@@ -67,8 +67,8 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
   nonebot_plugin_tarot: # 塔罗牌！配置请参考https://github.com/KafCoppelia/nonebot_plugin_tarot
     enabled: true
 
-  nonebot_plugin_haruka_bot: # b站主播开播自动推送！配置请参考https://github.com/SK-415/HarukaBot
-    enabled: true
+#  nonebot_plugin_haruka_bot: # b站主播开播自动推送！配置请参考https://github.com/SK-415/HarukaBot
+#    enabled: true
 
 
 command_start:

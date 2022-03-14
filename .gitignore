@@ -8,6 +8,7 @@ __pycache__/
 */__pycache__
 *.py[cod]
 *$py.class
+venvq
 .idea
 src/plugins/*/config.yaml
 data.db

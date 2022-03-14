@@ -23,7 +23,7 @@ async def _chat_event(message, server: MinecraftConnector):
                                               enable_placeholder_api=config["enable_placeholder_api"],
                                               server=server
                                           ))
-            if message_info['message'].startswith('.转发') and config['forward_to_qq']:
+            if config['forward_to_qq']:
                 group_message = message_info['message'].replace(".转发", '').strip()
                 if group_message:
                     server_info = await server.get_server_info()
