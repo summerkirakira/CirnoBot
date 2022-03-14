@@ -72,7 +72,7 @@ async def _server_status(bot: Bot, event: GroupMessageEvent):
 
 @player_search.handle()
 async def _player_search(bot: Bot, event: GroupMessageEvent):
-    player_id = event.get_plaintext().replace(".玩家查询", "").strip()
+    player_id = event.get_plaintext().replace(".玩家查询").strip()
     server_config, server = get_group_bind_server(event.group_id)
     if not server_config:
         await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))
