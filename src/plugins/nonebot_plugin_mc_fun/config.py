@@ -18,7 +18,7 @@ default_config = {
     "auto_reply_dict": {"hello": "world"},
     "auto_reply_start": ".",
 
-    "forward_to_qq": False,
+    "forward_to_qq": True,
     "sync_with_qq": True,
     "forward_enabled_groups": [],
 
