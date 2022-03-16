@@ -12,7 +12,6 @@ async-timeout==4.0.2
 asyncpg==0.25.0
 atlastk==0.13
 attrs==21.4.0
-backports.zoneinfo==0.2.1
 beautifulsoup4==4.10.0
 bidict==0.21.4
 binaryornot==0.4.4
