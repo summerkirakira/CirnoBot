@@ -181,7 +181,7 @@ class MinecraftConnector:
             httpx.get(f"http://{self.server_uri}/v1/ping", headers={"key": self.auth_key})
             return True
         except httpx.RequestError:
-            if self.connected and self.connected:
+            if self.connected:
                 nonebot.logger.opt(colors=True).warning(
                     f"<y>Connect to Minecraft server: {self.server_uri} failed! Please check config.</y>")
             return False
@@ -193,7 +193,10 @@ class MinecraftConnector:
         """
         async with httpx.AsyncClient() as client:
             response = await client.get(f"http://{self.server_uri}/v1/server", headers={"key": self.auth_key})
-            return json.loads(response.text)
+            server_info = json.loads(response.text)
+            if self.server_info:
+                server_info['name'] = self.server_info['name']
+            return server_info
 
     async def get_players(self) -> list:
         """

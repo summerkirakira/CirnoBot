@@ -98,6 +98,7 @@ async def check_server():
             if plugin["name"] == "PlaceholderAPI":
                 for config in server_configs:
                     if config["server_uri"] == server.server_uri:
+                        server_info: dict = await server.get_server_info()
                         if not config["enable_placeholder_api"]:
                             nonebot.logger.opt(colors=True).warning(f"<g>在服务器: {server.server_uri}中检测到"
                                                                     f"PlaceholderAPI, 但CirnoBot设置中未开启,"
@@ -105,3 +106,8 @@ async def check_server():
                         else:
                             await server.execute_command("papi ecloud download Player")
                             await server.execute_command("papi ecloud download Server")
+                            await server.execute_command("papi reload")
+                            server_status = await server.placeholder_api(message="%server_name%/%server_version%")
+                            server_info["name"] = server_status.split('/')[0]
+                            server_info["version"] = server_status.split('/')[1]
+                        server.server_info = server_info

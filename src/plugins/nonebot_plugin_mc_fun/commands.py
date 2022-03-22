@@ -58,7 +58,8 @@ async def _server_status(bot: Bot, event: GroupMessageEvent):
     h, m = divmod(m, 60)
     d, h = divmod(h, 24)
     message = f"服务器名称: {server_info['name']}\n服务器地址: {server_config['server_address']}\n" \
-              f"服务器版本: {server_info['version']}\n服务器TPS: {server_info['tps']}\n" \
+              f"服务器版本: {server_info['version'].split('(')[1].replace('MC: ', '').replace(')', '')}\n" \
+              f"服务器TPS: {server_info['tps']}\n" \
               f"在线时间: {d}天{h}小时{m}分钟\n" \
               f"内存占用: {round((server_info['health']['maxMemory'] - server_info['health']['freeMemory'])/1000000000, 2)}G/" \
               f"{round(server_info['health']['maxMemory']/1000000000, 2)}G(" \
@@ -400,4 +401,6 @@ async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
     sender_nickname = event.sender.nickname
     message = event.get_plaintext()
     if "sync_with_qq" not in server_config or server_config["sync_with_qq"]:
-        await server.broadcast(f"[QQ]<{sender_nickname}> {message}")
+        group_id: int = event.group_id
+        group_info = await bot.call_api('get_group_info', group_id=group_id)
+        await server.broadcast(f"[{group_info['group_name']}]<{sender_nickname}> {message}")
