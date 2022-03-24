@@ -29,7 +29,7 @@ remove_op = on_startswith(".移除管理员", priority=19)
 # 移除OP
 tell = on_startswith(".转发", priority=20)
 # 与服务器内玩家聊天
-sync = on_message(priority=25)
+sync = on_message(priority=25, block=False)
 # 同步消息
 chat_record = on_startswith(".聊天记录", priority=20)
 # 获取服务器最近十条消息
