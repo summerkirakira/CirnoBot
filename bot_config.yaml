@@ -11,7 +11,7 @@ port: 4080
 
 gocq_download_domain: download.fastgit.org # 如遇到下载出错或海外服务器请使用github.com哦
 
-superuser:
+superusers:
   - '12345678' # 主人账号
   - '12345678' # 可添加多个
 
