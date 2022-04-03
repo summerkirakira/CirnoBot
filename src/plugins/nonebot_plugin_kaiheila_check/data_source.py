@@ -11,7 +11,7 @@ my_headers = {
 
 async def get_kaiheila_info(url):
     async with httpx.AsyncClient() as client:
-        html = await client.get(url, headers=my_headers)
+        html = await client.get(url, headers=my_headers, follow_redirects=True)
     kaihei_server_info = json.loads(html.text)
     return kaihei_server_info
 
