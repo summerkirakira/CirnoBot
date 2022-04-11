@@ -85,6 +85,8 @@ git clone https://github.com/summerkirakira/CirnoBot.git # 下载CirnoBot文件
 ```
 2.安装CirnoBot依赖(**强烈建议**使用你喜欢的 Python 环境管理工具创建新的虚拟环境)
 ```shell
+cd CirnoBot # 进入文件夹
+
 pip install pip --upgrade # 更新pip
 
 pip install -r requirements.txt # 安装python依赖
