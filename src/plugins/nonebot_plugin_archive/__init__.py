@@ -343,7 +343,7 @@ async def init_archive():
     if not os.path.exists(os.path.join(current_folder, 'config.yaml')):
         save_config_to_yaml({"image_server_url": "http://localhost:4500",
                              "only_admin_can_edit": False})
-    global picture_server_url
+    global picture_server_url, entries
     picture_server_url = f'{get_config()["image_server_url"]}/?id='
     query = '''
     CREATE TABLE IF NOT EXISTS `archive`
@@ -361,5 +361,6 @@ async def init_archive():
     is_latest INTEGER,
     is_random INTEGER
     );'''
+    entries = await fetch_all_entries()
     await sqlite.execute(query)
 
