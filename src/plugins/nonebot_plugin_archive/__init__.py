@@ -361,6 +361,6 @@ async def init_archive():
     is_latest INTEGER,
     is_random INTEGER
     );'''
-    entries = await fetch_all_entries()
     await sqlite.execute(query)
+    entries = await fetch_all_entries()
 
