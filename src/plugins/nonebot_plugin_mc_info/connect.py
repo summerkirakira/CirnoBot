@@ -17,7 +17,9 @@ class MinecraftConnector:
         'on_player_chat': [],
         'on_player_login': [],
         'on_player_disconnected': [],
-        'on_player_execute_command': []
+        'on_player_execute_command': [],
+        'on_player_death': [],
+        'on_server_log': []
     }
 
     def __init__(self, server_uri: str, auth_key: str):
@@ -29,6 +31,7 @@ class MinecraftConnector:
         self.command_list: List[dict] = []
         self.login_event: List[dict] = []
         self.logout_event: List[dict] = []
+        self.player_death: List[dict] = []
         self.players: List[dict] = []
         if not self.test_connection():
             self.connected = False
@@ -87,6 +90,39 @@ class MinecraftConnector:
             "time": send_time
         }
 
+    @classmethod
+    async def process_player_death(cls, message) -> str:
+        """
+        格式化服务器日志中的玩家死亡日志
+        :param message: str
+        :return: dict
+        """
+        if 'lava' in message['message']:
+            return f"{message['message'].split(' ')[0]}被熔岩杀死了"
+        if 'magic' in message['message']:
+            return f"{message['message'].split(' ')[0]}被魔法杀死了"
+        else:
+            return message['message']
+
+    @classmethod
+    def is_death_message(cls, message: str) -> bool:
+        """
+        判断是否是死亡消息
+        :param message: str
+        :return: bool
+        """
+        if 'was killed' in message:
+            return True
+        if 'discovered floor was lava' in message:
+            return True
+        if 'fell out of the world' in message:
+            return True
+        if 'was pricked to death' in message:
+            return True
+        if 'was shot by an arrow' in message:
+            return True
+        return False
+
     async def process_commands(self, message) -> dict:
         """
         格式化服务器日志中的玩家命令日志
@@ -140,6 +176,7 @@ class MinecraftConnector:
                     while True:
                         log = await websocket.recv()
                         message = json.loads(log)
+                        print(message)
                         if int(round(time.time() * 1000)) - message["timestampMillis"] > 10000:
                             # 超过5s的记录将不会执行
                             continue
@@ -158,6 +195,13 @@ class MinecraftConnector:
                         elif 'issued server command' in message['message']:
                             self.command_list.append(message)
                             for listener in self.listener_dict['on_player_execute_command']:
+                                await listener(message=message, server=self)
+                        elif 'DedicatedServer' in message['loggerName'] and self.is_death_message(message['message']):
+                            self.player_death.append(message)
+                            for listener in self.listener_dict['on_player_death']:
+                                await listener(message=message, server=self)
+                        else:
+                            for listener in self.listener_dict['on_server_log']:
                                 await listener(message=message, server=self)
             except ConnectionClosedError as e:
                 self.connected = False

@@ -32,6 +32,18 @@ async def _chat_event(message, server: MinecraftConnector):
                                         f"[{server_info['name']}]<{message_info['name']}>{group_message}")
 
 
+@MinecraftConnector.handle('on_player_death')
+async def _death_event(message, server: MinecraftConnector):
+    configs = get_config()
+    for config in configs:
+        if config['forward_to_qq']:
+            group_message = await server.process_player_death(message)
+            if group_message:
+                server_info = await server.get_server_info()
+                for group_id in config["forward_enabled_groups"]:
+                    await safe_send("group", group_id, f"[{server_info['name']}]{group_message}")
+
+
 @MinecraftConnector.handle('on_player_login')
 async def _login_event(message, server: MinecraftConnector):
     config_list = get_config()
