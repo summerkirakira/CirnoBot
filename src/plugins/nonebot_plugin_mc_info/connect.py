@@ -3,6 +3,7 @@ import threading
 import asyncio
 import json
 import time
+import re
 from functools import wraps
 from typing import Optional, Dict, List
 
@@ -176,6 +177,7 @@ class MinecraftConnector:
                     while True:
                         log = await websocket.recv()
                         message = json.loads(log)
+                        message["message"] = re.sub(r"^\[.*?\]", "", message["message"]).strip()
                         if int(round(time.time() * 1000)) - message["timestampMillis"] > 10000:
                             # 超过5s的记录将不会执行
                             continue
