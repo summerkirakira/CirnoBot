@@ -403,4 +403,4 @@ async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
     if "sync_with_qq" not in server_config or server_config["sync_with_qq"]:
         group_id: int = event.group_id
         group_info = await bot.call_api('get_group_info', group_id=group_id)
-        await server.broadcast(f"[{group_info['group_name']}]<{sender_nickname}> {message}")
+        await server.broadcast(f" [{group_info['group_name']}]<{sender_nickname}> {message}")
