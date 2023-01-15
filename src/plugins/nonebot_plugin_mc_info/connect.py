@@ -22,6 +22,18 @@ class MinecraftConnector:
         'on_player_death': [],
         'on_server_log': []
     }
+    player_name_key_list = ["Name", "displayName", "name"]
+
+    def get_name_key(self, player: dict) -> str:
+        """
+        获取玩家的name key
+        :param player:
+        :return:
+        """
+        for key in self.player_name_key_list:
+            if key in player:
+                return key
+        return "Name"
 
     def __init__(self, server_uri: str, auth_key: str):
         self.server_uri: str = server_uri
@@ -50,11 +62,13 @@ class MinecraftConnector:
         :return: Optional[str]
         """
         for player in self.players:
-            if player["Name"].lower() == name.lower():
+            key = self.get_name_key(player)
+            if player[key].lower() == name.lower():
                 return player["uuid"]
         self.players = await self.get_all_players()
         for player in self.players:
-            if player["Name"].lower() == name.lower():
+            key = self.get_name_key(player)
+            if player[key].lower() == name.lower():
                 return player["uuid"]
         return None
 

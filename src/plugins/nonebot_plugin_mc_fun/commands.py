@@ -85,7 +85,8 @@ async def _player_search(bot: Bot, event: GroupMessageEvent):
     online_players = await server.get_players()
     all_players = await server.get_all_players()
     for player in all_players:
-        if player["Name"].lower() == player_id.lower():
+        key = server.get_name_key(player)
+        if player[key].lower() == player_id.lower():
             for online_player in online_players:
                 if online_player["uuid"] == player['uuid']:
                     player_message = f"玩家id: {online_player['displayName']}\n玩家状态: 在线\n是否管理员: {'是' if online_player['op'] else '否'}\n" \
