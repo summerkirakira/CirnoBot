@@ -6,6 +6,7 @@ current_folder = os.path.dirname(__file__)
 default_config = {
     "server_uri": "",
     "server_address": "",
+    "server_name": "",
     "is_focus": [],
     "superuser": [],
 

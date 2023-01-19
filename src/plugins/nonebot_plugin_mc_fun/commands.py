@@ -393,6 +393,7 @@ async def _get_plugin_list(bot: Bot, event: GroupMessageEvent):
     image = await make_plugins_image(await server.get_plugins())
     await bot.send(event, Message(MessageSegment.image(image)))
 
+
 @sync.handle()
 async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
     server_config, server = get_group_bind_server(event.group_id)

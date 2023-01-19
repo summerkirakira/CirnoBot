@@ -28,8 +28,11 @@ async def _chat_event(message, server: MinecraftConnector):
                 if group_message:
                     server_info = await server.get_server_info()
                     for group_id in config["forward_enabled_groups"]:
+                        server_name = server_info["name"]
+                        if "server_name" in config and config["server_name"]:
+                            server_name = config["server_name"]
                         await safe_send("group", group_id,
-                                        f"[{server_info['name']}]<{message_info['name']}>{group_message}")
+                                        f"[{server_name}]<{message_info['name']}>{group_message}")
 
 
 @MinecraftConnector.handle('on_player_death')
