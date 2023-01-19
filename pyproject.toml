@@ -4,17 +4,18 @@ version = "0.1.0"
 description = "cirno_bot"
 authors = []
 readme = "README.md"
+requires-python = ">=3.8, <4.0"
 
 [tool.poetry.dependencies]
-python = "^3.7.3"
 nonebot2 = "^2.0.0-beta.1"
 
 [tool.poetry.dev-dependencies]
 nb-cli = "^0.6.0"
 
 [tool.nonebot]
-plugins = ["nonebot_plugin_test", "nonebot_plugin_gocqhttp", "haruka_bot", "nonebot_plugin_gamedraw", "nonebot_plugin_what2eat", "nonebot_plugin_tarot", "nonebot_plugin_analysis_bilibili"]
+plugins = ["nonebot_plugin_gocqhttp", "haruka_bot"]
 plugin_dirs = ["src/plugins"]
+adapters = [{name = "OneBot V11", module_name = "nonebot.adapters.onebot.v11", project_link = "nonebot-adapter-onebot", desc = "OneBot V11 协议"}]
 
 [build-system]
 requires = ["poetry_core>=1.0.0"]

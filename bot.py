@@ -24,3 +24,6 @@ driver.register_adapter(OneBotAdapter)
 
 cirno_util.load_plugins()
 
+if __name__ == '__main__':
+    nonebot.run()
+

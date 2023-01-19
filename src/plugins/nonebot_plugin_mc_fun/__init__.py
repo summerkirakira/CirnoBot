@@ -12,10 +12,6 @@ from .data_source import save_config_to_json, get_config
 from .util import refresh_config, check_server
 from .commands import *
 
-from nonebot.plugin import require
-
-plugin_mc_info = require('nonebot_plugin_mc_info')
-
 global_config = get_driver().config
 driver = get_driver()
 
@@ -24,18 +20,4 @@ driver = get_driver()
 async def init():
     refresh_config()
     await check_server()
-
-
-
-
-
-# config = Config.parse_obj(global_config)
-
-# Export something for other plugin
-# export = nonebot.export()
-# export.foo = "bar"
-
-# @export.xxx
-# def some_function():
-#     pass
 

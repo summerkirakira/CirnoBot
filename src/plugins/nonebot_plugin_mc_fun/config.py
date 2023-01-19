@@ -10,7 +10,7 @@ default_config = {
     "superuser": [],
 
     "enable_placeholder_api": False,
-    "show_welcome_message": True,
+    "show_welcome_message": False,
     "welcome_message": "§6欢迎小伙伴%player_name%加入服务器～",
     "welcome_message_broadcast": "§6欢迎小伙伴%player_name%加入服务器～",
 

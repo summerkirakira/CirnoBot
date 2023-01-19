@@ -6,6 +6,7 @@ import time
 import re
 from functools import wraps
 from typing import Optional, Dict, List
+from loguru import logger
 
 import websockets
 from websockets.exceptions import ConnectionClosedError, InvalidStatusCode
@@ -53,7 +54,7 @@ class MinecraftConnector:
         else:
             self.ws_tread = self.WebSocketThread(self._ws_connect)
             self.ws_tread.start()
-            nonebot.logger.opt(colors=True).success(f"<g>与服务器: {server_uri}的ping test成功！</g>")
+            nonebot.logger.opt(colors=True).success(f"<g>与服务器: {server_uri}的Ping test成功！</g>")
 
     async def get_uuid_from_name(self, name) -> Optional[str]:
         """
@@ -80,11 +81,13 @@ class MinecraftConnector:
         """
         for player in self.players:
             if player["uuid"] == uuid:
-                return player["Name"]
+                key = self.get_name_key(player)
+                return player[key]
         self.players = await self.get_all_players()
         for player in self.players:
             if player["uuid"] == uuid:
-                return player["Name"]
+                key = self.get_name_key(player)
+                return player[key]
         return '未知'
 
     async def process_player_chat(self, message) -> dict:
@@ -189,12 +192,16 @@ class MinecraftConnector:
                     nonebot.logger.opt(colors=True).success(f"<g>与服务器: {self.server_uri}的Websocket连接建立成功...</g>")
                     self.connected = True
                     while True:
+                        self.connected = True
                         log = await websocket.recv()
                         message = json.loads(log)
-                        message["message"] = re.sub(r"^\[.*?\]", "", message["message"]).strip()
                         if int(round(time.time() * 1000)) - message["timestampMillis"] > 10000:
                             # 超过5s的记录将不会执行
                             continue
+                        logger.info(f"收到服务器[{self.server_uri}]的消息: {message['message']}")
+                        message["message"] = message["message"].strip()
+                        if message["message"].startswith("["):
+                            message["message"] = message["message"].split("]")[-1].strip()
                         if "logged in with entity id" in message["message"] and 'minecraft' in message["loggerName"]:
                             self.login_event.append(message)
                             for listener in self.listener_dict['on_player_login']:
@@ -229,6 +236,10 @@ class MinecraftConnector:
             except InvalidStatusCode as e:
                 nonebot.logger.opt(colors=True).warning(
                     f"<y>服务器: {self.server_uri}连接404(可能原因：服务器未开启，插件端口配置错误), 将在10秒后重试...</y>")
+                await asyncio.sleep(10)
+            except Exception as e:
+                self.connected = False
+                nonebot.logger.opt(colors=True).warning(f"<y>服务器: {self.server_uri}连接失败(未知原因), 将在10秒后重试...</y>")
                 await asyncio.sleep(10)
 
     def test_connection(self) -> bool:
