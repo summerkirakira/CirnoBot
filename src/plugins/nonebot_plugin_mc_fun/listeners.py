@@ -39,8 +39,12 @@ async def _chat_event(message, server: MinecraftConnector):
 async def _death_event(message, server: MinecraftConnector):
     configs = get_config()
     for config in configs:
+        if "enable_death_message" not in config:
+            continue
+        if not config["enable_death_message"]:
+            continue
         if config['forward_to_qq']:
-            group_message = await server.process_player_death(message)
+            group_message = await server.process_player_death(message, config["death_message"])
             if group_message:
                 server_info = await server.get_server_info()
                 for group_id in config["forward_enabled_groups"]:

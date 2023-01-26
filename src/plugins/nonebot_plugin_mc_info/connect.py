@@ -109,18 +109,26 @@ class MinecraftConnector:
         }
 
     @classmethod
-    async def process_player_death(cls, message) -> str:
+    async def process_player_death(cls, message, death_configs) -> str:
         """
         格式化服务器日志中的玩家死亡日志
         :param message: str
+        :param death_configs: dict
         :return: dict
         """
-        if 'lava' in message['message']:
-            return f"{message['message'].split(' ')[0]}被熔岩杀死了"
-        if 'magic' in message['message']:
-            return f"{message['message'].split(' ')[0]}被魔法杀死了"
-        else:
-            return message['message']
+
+        for death_config in death_configs:
+            regex = death_config["regex"]
+            death_message = death_config["message"]
+            from_parameters = re.findall(r"%(.*?)%", regex)
+            new_regex = re.sub(r"%(.*?)%", r"(.*?)", regex)
+            if re.match(new_regex, message):
+                matched = re.finditer(new_regex, message)
+                for index, match in enumerate(matched):
+                    from_para = from_parameters[index]
+                    death_message.replace(f"%{from_para}%", match)
+                return death_message
+        return message
 
     @classmethod
     def is_death_message(cls, message: str) -> bool:

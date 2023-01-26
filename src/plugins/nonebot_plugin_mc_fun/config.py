@@ -47,6 +47,15 @@ default_config = {
 
     "server_command": True,
 
+    "enable_death_message": True,
+
+    "death_message": [
+        {
+            "regex": "§6%player_name%§r被§6%killer_name%§r杀死了",
+            "message": "§6%player_name%§r被§6%killer_name%§r杀死了",
+        }
+    ]
+
 }
 
 
