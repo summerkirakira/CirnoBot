@@ -73,7 +73,6 @@ tzdata==2022.7
 tzlocal==4.2
 urllib3==1.26.14
 uvicorn==0.20.0
-uvloop==0.17.0
 virtualenv==20.17.1
 watchfiles==0.18.1
 wcwidth==0.2.6
