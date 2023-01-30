@@ -47,6 +47,7 @@ class MinecraftConnector:
         self.logout_event: List[dict] = []
         self.player_death: List[dict] = []
         self.players: List[dict] = []
+        self.online_players: List[dict] = []
         if not self.test_connection():
             self.connected = False
             self.ws_tread = self.WebSocketThread(self._ws_connect)
@@ -64,11 +65,15 @@ class MinecraftConnector:
         """
         for player in self.players:
             key = self.get_name_key(player)
+            if key not in player:
+                continue
             if player[key].lower() == name.lower():
                 return player["uuid"]
         self.players = await self.get_all_players()
         for player in self.players:
             key = self.get_name_key(player)
+            if key not in player:
+                continue
             if player[key].lower() == name.lower():
                 return player["uuid"]
         return None
@@ -248,6 +253,7 @@ class MinecraftConnector:
             except Exception as e:
                 self.connected = False
                 nonebot.logger.opt(colors=True).warning(f"<y>服务器: {self.server_uri}连接失败(未知原因), 将在10秒后重试...</y>")
+                nonebot.logger.exception(e)
                 await asyncio.sleep(10)
 
     def test_connection(self) -> bool:
@@ -281,9 +287,14 @@ class MinecraftConnector:
         获取当前在线玩家
         :return: list
         """
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"http://{self.server_uri}/v1/players", headers={"key": self.auth_key})
-            return json.loads(response.text)
+        try:
+            async with httpx.AsyncClient() as client:
+                response = await client.get(f"http://{self.server_uri}/v1/players", headers={"key": self.auth_key})
+                self.online_players = json.loads(response.text)
+                return self.online_players
+        except Exception as e:
+            # nonebot.logger.exception(e)
+            return self.online_players
 
     async def get_worlds(self) -> dict:
         """

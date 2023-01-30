@@ -1,3 +1,5 @@
+import asyncio
+
 import nonebot
 from nonebot.log import logger
 from ..nonebot_plugin_mc_info.connect import MinecraftConnector
@@ -8,6 +10,7 @@ from nonebot.adapters.onebot.v11.exception import ActionFailed, NetworkError
 import os
 
 server_lists = []
+current_player_num = 0
 
 
 async def safe_send(send_type, type_id, message):
@@ -36,6 +39,7 @@ async def safe_send(send_type, type_id, message):
 
 
 async def message_preprocess(message, server: MinecraftConnector, enable_placeholder_api: bool, uuid=None):
+    global current_player_num
     if enable_placeholder_api:
         return await server.placeholder_api(message, uuid=uuid)
     else:
@@ -46,7 +50,12 @@ async def message_preprocess(message, server: MinecraftConnector, enable_placeho
             server_info = await server.get_server_info()
         if "%server_online%" in parsed_message:
             players = await server.get_players()
-            parsed_message = parsed_message.replace("%server_online%", str(len(players)))
+            online_players = len(players)
+            while online_players == 0:
+                await asyncio.sleep(1)
+                online_players = len(await server.get_players())
+            parsed_message = parsed_message.replace("%server_online%", str(online_players))
+
         if "%server_name%" in parsed_message:
             parsed_message = parsed_message.replace("%server_name%", server_info['name'])
         return parsed_message
