@@ -6,11 +6,12 @@ current_folder = os.path.dirname(__file__)
 default_config = {
     "server_uri": "",
     "server_address": "",
+    "server_name": "",
     "is_focus": [],
     "superuser": [],
 
     "enable_placeholder_api": False,
-    "show_welcome_message": True,
+    "show_welcome_message": False,
     "welcome_message": "§6欢迎小伙伴%player_name%加入服务器～",
     "welcome_message_broadcast": "§6欢迎小伙伴%player_name%加入服务器～",
 
@@ -45,6 +46,15 @@ default_config = {
     "op": True,
 
     "server_command": True,
+
+    "enable_death_message": True,
+
+    "death_message": [
+        {
+            "regex": "§6%player_name%§r被§6%killer_name%§r杀死了",
+            "message": "§6%player_name%§r被§6%killer_name%§r杀死了",
+        }
+    ]
 
 }
 

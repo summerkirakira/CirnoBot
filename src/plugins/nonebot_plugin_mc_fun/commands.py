@@ -1,5 +1,5 @@
 from nonebot import on_startswith, on_message
-from nonebot.matcher import Matcher, Bot
+from nonebot import Bot
 from nonebot.adapters.onebot.v11.event import GroupMessageEvent
 from nonebot.adapters.onebot.v11.message import MessageSegment, Message
 from .data_source import save_specific_config
@@ -41,6 +41,8 @@ execute_command = on_startswith(".指令", priority=16)
 # 执行mc命令
 get_plugin_list = on_startswith(".插件列表", priority=16)
 # 获取插件列表
+get_format_api_message = on_startswith(".api", priority=16)
+# 使用PlaceHolderAPI格式化信息
 
 
 @server_status.handle()
@@ -103,7 +105,8 @@ async def _player_search(bot: Bot, event: GroupMessageEvent):
                             player_message += f"\n玩家延迟: {player_ping}ms\n最后登录: {time_string}"
                     await bot.send(event, Message(MessageSegment.text(player_message)))
                     return
-            player_message = f"玩家id: {player['Name']}\n玩家状态: 离线\n是否管理员: {'是' if player['op'] else '否'}"
+            key = server.get_name_key(player)
+            player_message = f"玩家id: {player[key]}\n玩家状态: 离线\n是否管理员: {'是' if player['op'] else '否'}"
             if server_config["enable_placeholder_api"]:
                 player_uuid = await server.get_uuid_from_name(player_id)
                 if player_uuid:
@@ -392,6 +395,7 @@ async def _get_plugin_list(bot: Bot, event: GroupMessageEvent):
     image = await make_plugins_image(await server.get_plugins())
     await bot.send(event, Message(MessageSegment.image(image)))
 
+
 @sync.handle()
 async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
     server_config, server = get_group_bind_server(event.group_id)
@@ -399,9 +403,33 @@ async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
         return
     if not server.connected:
         return
-    sender_nickname = event.sender.nickname
+    sender_nickname = (await bot.call_api(api="get_group_member_info", group_id=event.group_id, user_id=event.sender.user_id))["card"]
     message = event.get_plaintext()
     if "sync_with_qq" not in server_config or server_config["sync_with_qq"]:
         group_id: int = event.group_id
         group_info = await bot.call_api('get_group_info', group_id=group_id)
-        await server.broadcast(f" [{group_info['group_name']}]<{sender_nickname}> {message}")
+        await server.broadcast(f"「{group_info['group_name']}」<{sender_nickname}> {message}")
+
+
+@get_format_api_message.handle()
+async def _get_format_api_message(bot: Bot, event: GroupMessageEvent):
+    server_config, server = get_group_bind_server(event.group_id)
+    if not server_config:
+        await bot.send(event, Message(MessageSegment.text("请先添加群绑定服务器哦～")))
+        return
+    if not server.connected:
+        await bot.send(event, Message(MessageSegment.text("服务器未连接呢～")))
+        return
+    if event.sender.user_id not in server_config["superuser"]:
+        await bot.send(event, Message(MessageSegment.text("小伙伴权限不足呢～")))
+        return
+    if not server_config["enable_placeholder_api"]:
+        await bot.send(event, Message(MessageSegment.text("PlaceHolderAPI未开启呢～")))
+        return
+    try:
+        message = await server.placeholder_api(event.get_plaintext().replace(".api", "").strip())
+        await bot.send(event, Message(MessageSegment.text(message)))
+    except Exception as e:
+        await bot.send(event, Message(MessageSegment.text(f"格式化消息失败了呢～{e}")))
+        return
+
