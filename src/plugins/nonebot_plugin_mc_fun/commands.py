@@ -59,6 +59,8 @@ async def _server_status(bot: Bot, event: GroupMessageEvent):
     m, s = divmod(server_info['health']['uptime'], 60)
     h, m = divmod(m, 60)
     d, h = divmod(h, 24)
+    if "server_name" in server_config:
+        server_info["name"] = server_config["server_name"]
     message = f"服务器名称: {server_info['name']}\n服务器地址: {server_config['server_address']}\n" \
               f"服务器版本: {server_info['version'].split('(')[1].replace('MC: ', '').replace(')', '')}\n" \
               f"服务器TPS: {server_info['tps']}\n" \
