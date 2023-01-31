@@ -379,9 +379,14 @@ class MinecraftConnector:
         获取服务器所有玩家，包括离线玩家
         :return:
         """
-        async with httpx.AsyncClient() as client:
-            response = await client.get(f"http://{self.server_uri}/v1/players/all", headers={"key": self.auth_key})
-            return json.loads(response.text)
+        while True:
+            try:
+                async with httpx.AsyncClient() as client:
+                    response = await client.get(f"http://{self.server_uri}/v1/players/all", headers={"key": self.auth_key})
+                    return json.loads(response.text)
+                break
+            except Exception as e:
+                await asyncio.sleep(1)
 
     async def get_inventory(self, player_uuid: str, world_uuid: str) -> dict:
         """
