@@ -131,7 +131,7 @@
       description: 得到单张塔罗牌回应
 
 - series: B站主播信息推送
-  plugin_name: nonebot_plugin_haruka_bot
+  plugin_name: haruka_bot
   commands:
     - command: .添加主播 | .删除主播
       parameters: 主播的uid
