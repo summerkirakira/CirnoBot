@@ -240,7 +240,7 @@ async def _tell(bot: Bot, event: GroupMessageEvent):
         await bot.send(event, Message(MessageSegment.text("消息转接服务未开启的说～")))
         return
     sender_nickname = event.sender.nickname
-    await server.broadcast(f"<{sender_nickname}> {message}")
+    await server.broadcast(f"<{sender_nickname}§r> {message}")
     await bot.send(event, Message(MessageSegment.text("消息转发成功的说～")))
     return
 
@@ -410,7 +410,7 @@ async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
     if "sync_with_qq" not in server_config or server_config["sync_with_qq"]:
         group_id: int = event.group_id
         group_info = await bot.call_api('get_group_info', group_id=group_id)
-        await server.broadcast(f"「{group_info['group_name']}」<{sender_nickname}> {message}")
+        await server.broadcast(f"「{group_info['group_name']}」<{sender_nickname}§r> {message}")
 
 
 @get_format_api_message.handle()
