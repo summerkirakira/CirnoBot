@@ -405,7 +405,9 @@ async def _sync_with_qq(bot: Bot, event: GroupMessageEvent):
         return
     if not server.connected:
         return
-    sender_nickname = (await bot.call_api(api="get_group_member_info", group_id=event.group_id, user_id=event.sender.user_id))["card"]
+    sender_nickname: str = (await bot.call_api(api="get_group_member_info", group_id=event.group_id, user_id=event.sender.user_id))["card"]
+    if not sender_nickname:
+        sender_nickname = event.sender.nickname
     message = event.get_plaintext()
     if "sync_with_qq" not in server_config or server_config["sync_with_qq"]:
         group_id: int = event.group_id
