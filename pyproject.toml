@@ -4,10 +4,10 @@ version = "0.1.0"
 description = "cirno_bot"
 authors = []
 readme = "README.md"
-requires-python = ">=3.8, <4.0"
 
 [tool.poetry.dependencies]
 nonebot2 = "^2.0.0-beta.1"
+python = ">=3.8,<4.0"
 
 [tool.poetry.dev-dependencies]
 nb-cli = "^0.6.0"
