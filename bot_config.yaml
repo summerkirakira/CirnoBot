@@ -56,7 +56,7 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
     enabled: true # 是否开启
 #
   nonebot_plugin_gocqhttp: # 来自mix佬，在nonebot进程中运行gocq!(无需独立启动来运行QQ）
-    enabled: true # 如果你有将bot和nonebot放在不同服务器的需求，请禁用此项（别忘了把最上面的host改成0.0.0.0哦）
+    enabled: false # 如果你有将bot和nonebot放在不同服务器的需求，请禁用此项（别忘了把最上面的host改成0.0.0.0哦）
 #
 #  nonebot_plugin_what2eat: # 今天吃什么！配置请参考https://github.com/KafCoppelia/nonebot_plugin_what2eat
 #    enabled: true
@@ -65,7 +65,7 @@ plugins_config: # 包含基础设置，精确控制请移步插件文件夹
 #    enabled: true
 #
   nonebot_plugin_haruka_bot: # b站主播开播自动推送！配置请参考https://github.com/SK-415/HarukaBot
-    enabled: true
+    enabled: false
 
 
 command_start:
